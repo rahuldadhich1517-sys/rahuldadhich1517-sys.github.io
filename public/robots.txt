@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /404
+
+Sitemap: https://rahuldadhich.dev/sitemap.xml
+
+# GitHub Pages specific rules
+User-agent: Googlebot
+Allow: /

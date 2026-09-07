@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Github, Linkedin, Instagram, Mail, ArrowUp, MessageCircle } from 'lucide-react';
 
 export const Footer: React.FC = () => {
@@ -42,16 +43,25 @@ export const Footer: React.FC = () => {
     },
   ];
 
+  const footerLinks = [
+    { label: 'Home', href: '/' },
+    { label: 'About', href: '/about' },
+    { label: 'Projects', href: '/projects' },
+    { label: 'GitHub', href: '/github' },
+    { label: 'NPM', href: '/npm' },
+    { label: 'Reels', href: '/reels' },
+    { label: 'Resume', href: '/resume' },
+    { label: 'Contact', href: '/contact' },
+  ];
+
   return (
-    <footer
-      className="relative w-full bg-[#F9F9F7] border-t border-[#111111]"
-    >
+    <footer className="relative w-full bg-[#F9F9F7] border-t border-[#111111]">
       {/* Divider */}
       <div className="absolute top-0 left-0 right-0 h-px border-b border-[#111111]/20" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 py-16 lg:py-20">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12 lg:mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12 lg:mb-16">
           {/* Brand Section */}
           <div>
             <div className="mb-4">
@@ -64,7 +74,50 @@ export const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Social Links */}
+          {/* Quick Links */}
+          <div>
+            <h4 className="font-serif font-bold text-[#111111] mb-4 text-sm uppercase tracking-wider">
+              Navigation
+            </h4>
+            <ul className="space-y-2">
+              {footerLinks.slice(0, 4).map((link) => (
+                <li key={link.href}>
+                  <Link
+                    to={link.href}
+                    className="text-sm text-[#737373] hover:text-[#CC0000] transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* More Links */}
+          <div>
+            <h4 className="font-serif font-bold text-[#111111] mb-4 text-sm uppercase tracking-wider">
+              More
+            </h4>
+            <ul className="space-y-2">
+              {footerLinks.slice(4).map((link) => (
+                <li key={link.href}>
+                  <Link
+                    to={link.href}
+                    className="text-sm text-[#737373] hover:text-[#CC0000] transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Social Links */}
+        <div className="mb-12 lg:mb-16 pb-12 lg:pb-16 border-b border-[#111111]/20">
+          <h4 className="font-serif font-bold text-[#111111] mb-4 text-sm uppercase tracking-wider">
+            Connect
+          </h4>
           <div className="flex flex-wrap gap-4">
             {socialLinks.map((link) => {
               const Icon = link.icon;
@@ -75,7 +128,7 @@ export const Footer: React.FC = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={link.label}
-                  className="w-10 h-10 flex items-center justify-center rounded-full border border-[#111111] hover:bg-[#F5F5F5] text-[#CC0000] hover:text-white transition-colors duration-200"
+                  className="w-10 h-10 flex items-center justify-center border border-[#111111] hover:bg-[#CC0000] hover:border-[#CC0000] text-[#111111] hover:text-[#F9F9F7] transition-colors duration-200"
                 >
                   <Icon size={18} />
                 </a>
@@ -84,23 +137,21 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="h-px border-b border-[#111111]/20 mb-12" />
-
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Copyright */}
           <p className="text-xs lg:text-sm text-[#737373]">
-            © 2026 Rahul Dadhich
+            © 2026 Rahul Dadhich. All rights reserved.
           </p>
 
           {/* Back to Top Button */}
           <button
             onClick={scrollToTop}
             aria-label="Scroll back to top"
-            className="w-10 h-10 flex items-center justify-center rounded-full border border-[#111111] hover:bg-[#F5F5F5] transition-colors duration-200"
+            className="flex items-center gap-2 px-3 py-2 border border-[#111111] hover:bg-[#111111] text-[#111111] hover:text-[#F9F9F7] transition-colors text-sm font-medium uppercase tracking-wider"
           >
-            <ArrowUp size={18} />
+            Back to Top
+            <ArrowUp size={14} />
           </button>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import './Navbar.css';
@@ -9,26 +10,35 @@ interface NavItem {
 }
 
 const DESKTOP_NAV_ITEMS: NavItem[] = [
-  { label: 'Home', href: '#' },
-  { label: 'About', href: '#about' },
-  { label: 'Skills', href: '#technology' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Services', href: '#engineering' },
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Skills', href: '/skills' },
+  { label: 'Experience', href: '/experience' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Open Source', href: '/github' },
 ];
 
 const MOBILE_NAV_ITEMS: NavItem[] = [
-  { label: 'Home', href: '#' },
-  { label: 'About', href: '#about' },
-  { label: 'Skills', href: '#technology' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Services', href: '#engineering' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Skills', href: '/skills' },
+  { label: 'Experience', href: '/experience' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'GitHub', href: '/github' },
+  { label: 'NPM', href: '/npm' },
+  { label: 'Reels', href: '/reels' },
+  { label: 'Resume', href: '/resume' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
 
   // Close mobile menu on resize to desktop
   useEffect(() => {
@@ -42,14 +52,9 @@ export function Navbar() {
     return () => window.removeEventListener('resize', handleResize);
   }, [isMobileMenuOpen]);
 
-  // Handle smooth scroll to section
-  const handleNavClick = useCallback((href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-    setIsMobileMenuOpen(false);
-  }, []);
+  const isActive = (href: string): boolean => {
+    return location.pathname === href;
+  };
 
   // Keyboard accessibility for mobile menu
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
@@ -68,31 +73,32 @@ export function Navbar() {
       >
         <div className="navbar__inner">
           {/* Logo */}
-          <a href="/" className="navbar__logo" aria-label="Rahul Dadhich - Home">
+          <Link to="/" className="navbar__logo" aria-label="Rahul Dadhich - Home">
             <span className="navbar__logo-text">RD.</span>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="navbar__desktop-nav" aria-hidden={isMobileMenuOpen}>
             <ul className="navbar__list" role="menubar">
               {DESKTOP_NAV_ITEMS.map((item, index) => (
                 <li key={item.label} role="none">
-                  <motion.a
-                    href={item.href}
-                    className="navbar__link"
+                  <motion.div
                     role="menuitem"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNavClick(item.href);
-                    }}
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: index * 0.05 }}
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    {item.label}
-                  </motion.a>
+                    <Link
+                      to={item.href}
+                      className={`navbar__link ${
+                        isActive(item.href) ? 'text-accent' : ''
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  </motion.div>
                 </li>
               ))}
             </ul>
@@ -100,16 +106,18 @@ export function Navbar() {
 
           {/* Desktop CTA */}
           <div className="navbar__cta desktop-only" aria-hidden={isMobileMenuOpen}>
-            <motion.a
-              href={`${import.meta.env.BASE_URL}resume.pdf`}
-              download="Resume.pdf"
-              className="btn btn--primary btn--sm navbar__btn"
+            <motion.div
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.98 }}
             >
-              <span>Download Resume</span>
-              <ArrowRight className="navbar__btn-icon" aria-hidden="true" />
-            </motion.a>
+              <Link
+                to="/resume"
+                className="btn btn--primary btn--sm navbar__btn"
+              >
+                <span>Resume</span>
+                <ArrowRight className="navbar__btn-icon" aria-hidden="true" />
+              </Link>
+            </motion.div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -180,62 +188,59 @@ export function Navbar() {
             >
               <div className="navbar__mobile-content">
                 <div className="navbar__mobile-header">
-                  <a href="/" className="navbar__logo" aria-label="Rahul Dadhich - Home">
+                  <Link to="/" className="navbar__logo" aria-label="Rahul Dadhich - Home">
                     <span className="navbar__logo-text">RD.</span>
-                  </a>
+                  </Link>
                 </div>
 
                 <ul className="navbar__mobile-list" role="menu">
                   {MOBILE_NAV_ITEMS.map((item, index) => (
                     <li key={item.label} role="none">
-                      <motion.a
-                        href={item.href}
-                        className="navbar__mobile-link"
+                      <motion.div
                         role="menuitem"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleNavClick(item.href);
-                        }}
                         initial={{ opacity: 0, x: 30 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -30 }}
                         transition={{ duration: 0.3, delay: index * 0.08 }}
                       >
-                        {item.label}
-                      </motion.a>
+                        <Link
+                          to={item.href}
+                          className={`navbar__mobile-link ${
+                            isActive(item.href) ? 'text-accent' : ''
+                          }`}
+                        >
+                          {item.label}
+                        </Link>
+                      </motion.div>
                     </li>
                   ))}
                 </ul>
 
                 <div className="navbar__mobile-cta">
-                  <motion.a
-                    href="#resume"
-                    className="btn btn--primary btn--lg navbar__mobile-btn"
-                    role="button"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNavClick('#resume');
-                    }}
+                  <motion.div
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <span>Resume</span>
-                    <ArrowRight className="navbar__btn-icon" aria-hidden="true" />
-                  </motion.a>
-                  <motion.a
-                    href="#contact"
-                    className="btn btn--secondary btn--lg navbar__mobile-btn"
-                    role="button"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNavClick('#contact');
-                    }}
+                    <Link
+                      to="/resume"
+                      className="btn btn--primary btn--lg navbar__mobile-btn"
+                    >
+                      <span>Resume</span>
+                      <ArrowRight className="navbar__btn-icon" aria-hidden="true" />
+                    </Link>
+                  </motion.div>
+                  <motion.div
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <span>Contact</span>
-                    <ArrowRight className="navbar__btn-icon" aria-hidden="true" />
-                  </motion.a>
+                    <Link
+                      to="/contact"
+                      className="btn btn--secondary btn--lg navbar__mobile-btn"
+                    >
+                      <span>Contact</span>
+                      <ArrowRight className="navbar__btn-icon" aria-hidden="true" />
+                    </Link>
+                  </motion.div>
                 </div>
               </div>
             </motion.nav>
