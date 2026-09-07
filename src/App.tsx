@@ -9,11 +9,11 @@ import SkillsPage from './pages/SkillsPage';
 import ExperiencePage from './pages/ExperiencePage';
 import ProjectsPage from './pages/ProjectsPage';
 import GitHubPage from './pages/GitHubPage';
-import NPMPage from './pages/NPMPage';
-import ReelsPage from './pages/ReelsPage';
+import PackagesPage from './pages/PackagesPage';
 import ResumePage from './pages/ResumePage';
 import ContactPage from './pages/ContactPage';
 import NotFoundPage from './pages/NotFoundPage';
+import VideosPage from './pages/VideosPage';
 
 function App() {
   return (
@@ -27,8 +27,8 @@ function App() {
             <Route path="/experience" element={<ExperiencePage />} />
             <Route path="/projects" element={<ProjectsPage />} />
             <Route path="/github" element={<GitHubPage />} />
-            <Route path="/npm" element={<NPMPage />} />
-            <Route path="/reels" element={<ReelsPage />} />
+            <Route path="/packages" element={<PackagesPage />} />
+            <Route path="/videos" element={<VideosPage />} />
             <Route path="/resume" element={<ResumePage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="*" element={<NotFoundPage />} />

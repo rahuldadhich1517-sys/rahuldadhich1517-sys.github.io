@@ -10,14 +10,14 @@ export interface GitHubRepo {
   liveUrl?: string;
   image?: string;
   featured: boolean;
-  category: "Frontend" | "Backend" | "Full Stack" | "Tool" | "Library" | "Other";
+  category: "Frontend" | "Backend" | "Full Stack" | "Library" | "Data Analytics";
   year?: number;
 }
 
 export const githubRepos: GitHubRepo[] = [
   {
     id: "repo-1",
-    name: "portfolio",
+    name: "Portfolio Website",
     description: "Personal portfolio website - React + TypeScript + Tailwind CSS. Features multi-page routing, project showcase, GitHub repositories display, and Instagram Reels integration.",
     language: "TypeScript",
     stars: 0,
@@ -26,62 +26,29 @@ export const githubRepos: GitHubRepo[] = [
     url: "https://github.com/rahuldadhich1517-sys/rahuldadhich1517-sys.github.io",
     liveUrl: "https://rahuldadhich.dev",
     featured: true,
-    category: "Full Stack",
+    category: "Frontend",
     year: 2026,
   },
   {
     id: "repo-2",
-    name: "react-components-library",
-    description: "Reusable React components library built with TypeScript. Includes animated counters, skill grids, project cards, and more. Production-ready and fully typed.",
-    language: "TypeScript",
-    topics: ["react", "components", "typescript", "library"],
-    url: "https://github.com/rahuldadhich1517-sys/react-components-library",
+    name: "Developer Job Market Analytics",
+    description: "Analytics dashboard for tracking developer job market trends and insights.",
+    language: "Python, Numpy, Pandas, Matplotlib, ReactJs",
+    topics: ["react", "analytics", "data", "python", "dashboard"],
+    url: "https://github.com/rahuldadhich1517-sys/developer-job-market-analytics",
     featured: true,
-    category: "Library",
-    year: 2025,
+    category: "Data Analytics",
+    year: 2026,
   },
   {
     id: "repo-3",
-    name: "mern-ecommerce",
-    description: "Full-stack e-commerce platform built with MERN stack. Features product management, cart functionality, payment integration, and admin dashboard.",
-    language: "JavaScript",
-    topics: ["mern", "react", "nodejs", "express", "mongodb", "ecommerce"],
-    url: "https://github.com/rahuldadhich1517-sys/mern-ecommerce",
-    featured: true,
-    category: "Full Stack",
-    year: 2024,
-  },
-  {
-    id: "repo-4",
-    name: "ai-chatbot-assistant",
-    description: "AI-powered chatbot built with React and OpenAI API. Features conversation history, context awareness, and responsive design.",
-    language: "TypeScript",
-    topics: ["react", "openai", "ai", "chatbot", "typescript"],
-    url: "https://github.com/rahuldadhich1517-sys/ai-chatbot-assistant",
+    name: "AI ChatGPT3 Website",
+    description: "A website which shows only frontend. Built with ReactJs.",
+    language: "HTML, CSS, JavaScript, ReactJs",
+    topics: ["react", "HTML", "CSS", "javascript"],
+    url: "https://github.com/rahuldadhich1517-sys/AI-ChatGPT3-Website",
     featured: true,
     category: "Frontend",
-    year: 2024,
-  },
-  {
-    id: "repo-5",
-    name: "task-management-app",
-    description: "Task management application with drag-and-drop interface, real-time updates, and persistent storage.",
-    language: "TypeScript",
-    topics: ["react", "typescript", "task-management", "ui"],
-    url: "https://github.com/rahuldadhich1517-sys/task-management-app",
-    featured: false,
-    category: "Frontend",
-    year: 2024,
-  },
-  {
-    id: "repo-6",
-    name: "node-rest-api",
-    description: "RESTful API built with Node.js and Express. Includes authentication, database integration, and comprehensive error handling.",
-    language: "JavaScript",
-    topics: ["nodejs", "express", "rest-api", "backend"],
-    url: "https://github.com/rahuldadhich1517-sys/node-rest-api",
-    featured: false,
-    category: "Backend",
     year: 2023,
   },
 ];

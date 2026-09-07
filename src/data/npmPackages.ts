@@ -6,87 +6,47 @@ export interface NPMPackage {
   npmUrl: string;
   githubUrl?: string;
   downloads?: number;
-  category: "UI" | "Utility" | "Animation" | "Data" | "DevTools" | "Other";
+  category: "String" | "Data" | "Utility" | "Other";
   tags: string[];
   featured: boolean;
   author: string;
   year?: number;
   keywords?: string[];
+  tools?: string[];
 }
 
 export const npmPackages: NPMPackage[] = [
   {
     id: "npm-1",
-    name: "react-scroll-animator",
-    description: "Lightweight React component for scroll-triggered animations. Fully typed with TypeScript and zero dependencies.",
-    version: "1.2.0",
-    npmUrl: "https://www.npmjs.com/package/react-scroll-animator",
-    githubUrl: "https://github.com/rahuldadhich1517-sys/react-scroll-animator",
-    downloads: 2400,
-    category: "Animation",
-    tags: ["react", "animation", "scroll", "intersection-observer"],
+    name: "stringkit-utils",
+    description: "A comprehensive utility library for string manipulation and transformation. Includes advanced string operations, pattern matching, formatting utilities, case conversion, and more. Built with TypeScript for complete type safety.",
+    version: "1.0.0",
+    npmUrl: "https://www.npmjs.com/package/stringkit-utils",
+    githubUrl: "https://github.com/rahuldadhich1517-sys/stringkit-utils",
+    downloads: 1200,
+    category: "String",
+    tags: ["string", "utility", "typescript", "formatting", "manipulation"],
     featured: true,
     author: "Rahul Dadhich",
-    year: 2024,
-    keywords: ["scroll", "animation", "observer", "react"],
+    year: 2026,
+    tools: ["TypeScript", "Node.js", "Jest", "Webpack", "npm"],
+    keywords: ["string", "utility", "helper", "formatting"],
   },
   {
     id: "npm-2",
-    name: "tailwind-utilities",
-    description: "Extended Tailwind CSS utilities plugin. Adds custom animations, gradients, and spacing utilities.",
-    version: "2.1.0",
-    npmUrl: "https://www.npmjs.com/package/tailwind-utilities",
-    githubUrl: "https://github.com/rahuldadhich1517-sys/tailwind-utilities",
-    downloads: 1800,
-    category: "UI",
-    tags: ["tailwind", "css", "utilities", "plugin"],
-    featured: true,
-    author: "Rahul Dadhich",
-    year: 2024,
-    keywords: ["tailwind", "css", "utilities"],
-  },
-  {
-    id: "npm-3",
-    name: "data-validation-core",
-    description: "Robust data validation library for TypeScript. Supports complex schemas with type inference.",
-    version: "1.5.2",
-    npmUrl: "https://www.npmjs.com/package/data-validation-core",
-    githubUrl: "https://github.com/rahuldadhich1517-sys/data-validation-core",
+    name: "data-transform-toolkit",
+    description: "Powerful toolkit for data transformation and conversion. Transform between multiple data formats, validate schemas, manipulate complex data structures with ease. Features comprehensive type definitions and validation.",
+    version: "1.0.0",
+    npmUrl: "https://www.npmjs.com/package/data-transform-toolkit",
+    githubUrl: "https://github.com/rahuldadhich1517-sys/data-transform-toolkit",
     downloads: 950,
-    category: "Utility",
-    tags: ["validation", "typescript", "schema", "data"],
+    category: "Data",
+    tags: ["data", "transformation", "conversion", "typescript", "schema"],
     featured: true,
     author: "Rahul Dadhich",
-    year: 2023,
-    keywords: ["validation", "schema", "typescript"],
-  },
-  {
-    id: "npm-4",
-    name: "lazy-image-loader",
-    description: "Lightweight image lazy loading component with blur-up effect and progressive loading.",
-    version: "1.0.5",
-    npmUrl: "https://www.npmjs.com/package/lazy-image-loader",
-    downloads: 640,
-    category: "UI",
-    tags: ["image", "lazy-loading", "performance", "react"],
-    featured: false,
-    author: "Rahul Dadhich",
-    year: 2023,
-    keywords: ["image", "lazy", "performance"],
-  },
-  {
-    id: "npm-5",
-    name: "api-client-wrapper",
-    description: "Type-safe API client wrapper for Fetch API. Built-in caching, retry logic, and request/response interceptors.",
-    version: "0.8.1",
-    npmUrl: "https://www.npmjs.com/package/api-client-wrapper",
-    downloads: 420,
-    category: "Utility",
-    tags: ["api", "fetch", "typescript", "client"],
-    featured: false,
-    author: "Rahul Dadhich",
-    year: 2023,
-    keywords: ["api", "fetch", "client"],
+    year: 2026,
+    tools: ["TypeScript", "Node.js", "Zod", "Babel", "npm"],
+    keywords: ["data", "transform", "convert", "schema"],
   },
 ];
 

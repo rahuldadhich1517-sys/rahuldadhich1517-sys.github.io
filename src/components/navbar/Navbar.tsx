@@ -15,7 +15,9 @@ const DESKTOP_NAV_ITEMS: NavItem[] = [
   { label: 'Skills', href: '/skills' },
   { label: 'Experience', href: '/experience' },
   { label: 'Projects', href: '/projects' },
-  { label: 'Open Source', href: '/github' },
+  { label: 'GitHub', href: '/github' },
+  { label: 'Packages', href: '/packages' },
+  { label: 'Videos', href: '/videos' },
 ];
 
 const MOBILE_NAV_ITEMS: NavItem[] = [
@@ -25,8 +27,8 @@ const MOBILE_NAV_ITEMS: NavItem[] = [
   { label: 'Experience', href: '/experience' },
   { label: 'Projects', href: '/projects' },
   { label: 'GitHub', href: '/github' },
-  { label: 'NPM', href: '/npm' },
-  { label: 'Reels', href: '/reels' },
+  { label: 'Packages', href: '/packages' },
+  { label: 'Videos', href: '/videos' },
   { label: 'Resume', href: '/resume' },
   { label: 'Contact', href: '/contact' },
 ];

@@ -73,44 +73,6 @@ export const Footer: React.FC = () => {
               </p>
             </div>
           </div>
-
-          {/* Quick Links */}
-          <div>
-            <h4 className="font-serif font-bold text-[#111111] mb-4 text-sm uppercase tracking-wider">
-              Navigation
-            </h4>
-            <ul className="space-y-2">
-              {footerLinks.slice(0, 4).map((link) => (
-                <li key={link.href}>
-                  <Link
-                    to={link.href}
-                    className="text-sm text-[#737373] hover:text-[#CC0000] transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* More Links */}
-          <div>
-            <h4 className="font-serif font-bold text-[#111111] mb-4 text-sm uppercase tracking-wider">
-              More
-            </h4>
-            <ul className="space-y-2">
-              {footerLinks.slice(4).map((link) => (
-                <li key={link.href}>
-                  <Link
-                    to={link.href}
-                    className="text-sm text-[#737373] hover:text-[#CC0000] transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
 
         {/* Social Links */}
