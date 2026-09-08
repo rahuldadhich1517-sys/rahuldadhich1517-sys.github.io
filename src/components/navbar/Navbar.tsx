@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ArrowRight } from 'lucide-react';
+import { Menu, X, ArrowUpRight, FileText, Mail } from 'lucide-react';
 import './Navbar.css';
 
 interface NavItem {
@@ -8,32 +9,36 @@ interface NavItem {
   href: string;
 }
 
-const DESKTOP_NAV_ITEMS: NavItem[] = [
-  { label: 'Home', href: '#' },
-  { label: 'About', href: '#about' },
-  { label: 'Skills', href: '#technology' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Services', href: '#engineering' },
+const NAV_ITEMS: NavItem[] = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Skills', href: '/skills' },
+  { label: 'Experience', href: '/experience' },
+  { label: 'Work', href: '/projects' },
+  { label: 'GitHub', href: '/github' },
+  { label: 'Packages', href: '/packages' },
+  { label: 'Videos', href: '/videos' },
 ];
 
-const MOBILE_NAV_ITEMS: NavItem[] = [
-  { label: 'Home', href: '#' },
-  { label: 'About', href: '#about' },
-  { label: 'Skills', href: '#technology' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Services', href: '#engineering' },
-  { label: 'Contact', href: '#contact' },
+const ALL_MOBILE_ITEMS: NavItem[] = [
+  ...NAV_ITEMS,
+  { label: 'Resume', href: '/resume' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
 
   // Close mobile menu on resize to desktop
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 768 && isMobileMenuOpen) {
+      if (window.innerWidth >= 1024 && isMobileMenuOpen) {
         setIsMobileMenuOpen(false);
       }
     };
@@ -42,82 +47,105 @@ export function Navbar() {
     return () => window.removeEventListener('resize', handleResize);
   }, [isMobileMenuOpen]);
 
-  // Handle smooth scroll to section
-  const handleNavClick = useCallback((href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const isActive = (href: string): boolean => {
+    if (href === '/') {
+      return location.pathname === '/';
     }
-    setIsMobileMenuOpen(false);
-  }, []);
+    return location.pathname.startsWith(href);
+  };
 
   // Keyboard accessibility for mobile menu
-  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    if (e.key === 'Escape' && isMobileMenuOpen) {
-      setIsMobileMenuOpen(false);
-    }
-  }, [isMobileMenuOpen]);
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'Escape' && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    },
+    [isMobileMenuOpen]
+  );
 
   return (
-    <>
-      {/* Desktop Navbar */}
+    <header className="editorial-masthead" role="banner">
+      <div className="editorial-masthead__dateline">
+        <div className="editorial-masthead__dateline-inner">
+
+          <div className="hidden md:flex items-center gap-3 font-mono text-2xs tracking-widest text-text-primary font-bold uppercase">
+            <span>DEVELOPER PORTFOLIO</span>
+            <span>•</span>
+            <span>JAIPUR, INDIA</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Masthead Bar */}
       <nav
-        className="navbar"
+        className="editorial-masthead__main"
         role="navigation"
         aria-label="Main navigation"
       >
-        <div className="navbar__inner">
-          {/* Logo */}
-          <a href="/" className="navbar__logo" aria-label="Rahul Dadhich - Home">
-            <span className="navbar__logo-text">RD.</span>
-          </a>
+        <div className="editorial-masthead__inner">
+          {/* Masthead Brandmark */}
+          <Link
+            to="/"
+            className="editorial-masthead__brand"
+            aria-label="Rahul Dadhich — Portfolio Home"
+          >
+            <div className="editorial-masthead__brand-mark">
+              <span className="editorial-masthead__logo-title">RAHUL DADHICH</span>
+              <span className="editorial-masthead__logo-sub">
+                FULL STACK × AI ENGINEER
+              </span>
+            </div>
+          </Link>
 
-          {/* Desktop Navigation */}
-          <div className="navbar__desktop-nav" aria-hidden={isMobileMenuOpen}>
-            <ul className="navbar__list" role="menubar">
-              {DESKTOP_NAV_ITEMS.map((item, index) => (
-                <li key={item.label} role="none">
-                  <motion.a
-                    href={item.href}
-                    className="navbar__link"
-                    role="menuitem"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNavClick(item.href);
-                    }}
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.05 }}
-                    whileHover={{ y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    {item.label}
-                  </motion.a>
-                </li>
-              ))}
+          {/* Desktop Editorial Navigation Index */}
+          <div className="editorial-masthead__nav desktop-only" aria-hidden={isMobileMenuOpen}>
+            <ul className="editorial-masthead__list" role="menubar">
+              {NAV_ITEMS.map((item) => {
+                const active = isActive(item.href);
+                return (
+                  <li key={item.label} role="none" className="editorial-masthead__item">
+                    <Link
+                      to={item.href}
+                      className={`editorial-masthead__link ${active ? 'editorial-masthead__link--active' : ''}`}
+                      role="menuitem"
+                    >
+                      {/* <span className="editorial-masthead__index">{item.number}</span> */}
+                      <span className="editorial-masthead__label">{item.label}</span>
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
-          {/* Desktop CTA */}
-          <div className="navbar__cta desktop-only" aria-hidden={isMobileMenuOpen}>
-            <motion.a
-              href={`${import.meta.env.BASE_URL}resume.pdf`}
+          {/* Action CTAs */}
+          <div className="editorial-masthead__actions desktop-only">
+            <a
+              href="/Resume.pdf"
               download="Resume.pdf"
-              className="btn btn--primary btn--sm navbar__btn"
-              whileHover={{ y: -2 }}
-              whileTap={{ scale: 0.98 }}
+              className="btn btn--sm btn--secondary"
+              aria-label="Download Resume (PDF)"
             >
-              <span>Download Resume</span>
-              <ArrowRight className="navbar__btn-icon" aria-hidden="true" />
-            </motion.a>
+              <FileText className="w-3.5 h-3.5" />
+              <span>Resume (PDF)</span>
+            </a>
+            <Link
+              to="/contact"
+              className="btn btn--sm btn--primary"
+              aria-label="Get in touch"
+            >
+              <span>Contact</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Toggle */}
           <button
-            className="navbar__mobile-toggle mobile-only"
+            className="editorial-masthead__mobile-toggle mobile-only"
             aria-expanded={isMobileMenuOpen}
-            aria-controls="mobile-menu"
-            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-controls="editorial-mobile-menu"
+            aria-label={isMobileMenuOpen ? 'Close index' : 'Open publication index'}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
@@ -133,9 +161,9 @@ export function Navbar() {
                   initial={{ rotate: -90, opacity: 0 }}
                   animate={{ rotate: 0, opacity: 1 }}
                   exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
+                  transition={{ duration: 0.15 }}
                 >
-                  <X className="navbar__mobile-icon" aria-hidden="true" />
+                  <X className="w-5 h-5 text-text-primary" aria-hidden="true" />
                 </motion.div>
               ) : (
                 <motion.div
@@ -143,9 +171,11 @@ export function Navbar() {
                   initial={{ rotate: 90, opacity: 0 }}
                   animate={{ rotate: 0, opacity: 1 }}
                   exit={{ rotate: -90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
+                  transition={{ duration: 0.15 }}
+                  className="flex items-center gap-1.5"
                 >
-                  <Menu className="navbar__mobile-icon" aria-hidden="true" />
+                  <span className="font-mono text-2xs font-bold tracking-widest uppercase">INDEX</span>
+                  <Menu className="w-4 h-4 text-text-primary" aria-hidden="true" />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -153,95 +183,106 @@ export function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Broadsheet Menu Overlay */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <>
             <motion.div
-              className="navbar__mobile-overlay"
+              className="editorial-mobile__overlay"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.2 }}
               onClick={() => setIsMobileMenuOpen(false)}
               aria-hidden="true"
             />
-            <motion.nav
-              id="mobile-menu"
-              className="navbar__mobile-menu"
+            <motion.div
+              id="editorial-mobile-menu"
+              className="editorial-mobile__drawer"
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              transition={{ type: 'tween', duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
               role="dialog"
               aria-modal="true"
-              aria-label="Mobile navigation"
+              aria-label="Table of contents"
               onKeyDown={handleKeyDown}
             >
-              <div className="navbar__mobile-content">
-                <div className="navbar__mobile-header">
-                  <a href="/" className="navbar__logo" aria-label="Rahul Dadhich - Home">
-                    <span className="navbar__logo-text">RD.</span>
-                  </a>
+              <div className="editorial-mobile__content">
+                {/* Mobile Drawer Masthead Header */}
+                <div className="editorial-mobile__header">
+                  <div>
+                    <div className="font-serif font-bold text-xl tracking-tight text-text-primary">
+                      RAHUL DADHICH
+                    </div>
+                    <div className="font-mono text-2xs text-text-muted font-bold tracking-widest uppercase">
+                      TABLE OF CONTENTS // 2026
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="p-2 border border-border-primary hover:bg-bg-surface text-text-primary"
+                    aria-label="Close table of contents"
+                  >
+                    <X className="w-5 h-5 text-text-primary" />
+                  </button>
                 </div>
 
-                <ul className="navbar__mobile-list" role="menu">
-                  {MOBILE_NAV_ITEMS.map((item, index) => (
-                    <li key={item.label} role="none">
-                      <motion.a
-                        href={item.href}
-                        className="navbar__mobile-link"
-                        role="menuitem"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleNavClick(item.href);
-                        }}
-                        initial={{ opacity: 0, x: 30 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -30 }}
-                        transition={{ duration: 0.3, delay: index * 0.08 }}
-                      >
-                        {item.label}
-                      </motion.a>
-                    </li>
-                  ))}
-                </ul>
+                {/* Numbered Article Index */}
+                <div className="editorial-mobile__index-list">
+                  <div className="px-4 py-2 bg-bg-surface border-b border-border-subtle font-mono text-2xs font-bold tracking-widest uppercase text-text-primary">
+                    PUBLICATIONS & SECTIONS
+                  </div>
+                  <ul className="divide-y divide-border-subtle" role="menu">
+                    {ALL_MOBILE_ITEMS.map((item) => {
+                      const active = isActive(item.href);
+                      return (
+                        <li key={item.label} role="none">
+                          <Link
+                            to={item.href}
+                            className={`editorial-mobile__link ${active ? 'editorial-mobile__link--active' : ''}`}
+                            role="menuitem"
+                          >
+                            <span className="font-serif text-lg font-bold tracking-tight text-text-primary">
+                              {item.label}
+                            </span>
+                            <ArrowUpRight className="w-4 h-4 ml-auto text-text-primary" />
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
 
-                <div className="navbar__mobile-cta">
-                  <motion.a
-                    href="#resume"
-                    className="btn btn--primary btn--lg navbar__mobile-btn"
-                    role="button"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNavClick('#resume');
-                    }}
-                    whileHover={{ y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <span>Resume</span>
-                    <ArrowRight className="navbar__btn-icon" aria-hidden="true" />
-                  </motion.a>
-                  <motion.a
-                    href="#contact"
-                    className="btn btn--secondary btn--lg navbar__mobile-btn"
-                    role="button"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNavClick('#contact');
-                    }}
-                    whileHover={{ y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <span>Contact</span>
-                    <ArrowRight className="navbar__btn-icon" aria-hidden="true" />
-                  </motion.a>
+                {/* Mobile Bottom Dispatch Bar */}
+                <div className="editorial-mobile__footer">
+                  <div className="grid grid-cols-2 gap-3 mb-4">
+                    <a
+                      href="/Resume.pdf"
+                      download="Resume.pdf"
+                      className="btn btn--secondary btn--sm w-full"
+                      aria-label="Download Resume (PDF)"
+                    >
+                      <FileText className="w-3.5 h-3.5" />
+                      <span>Resume (PDF)</span>
+                    </a>
+                    <Link
+                      to="/contact"
+                      className="btn btn--primary btn--sm w-full"
+                    >
+                      <Mail className="w-3.5 h-3.5" />
+                      <span>Contact</span>
+                    </Link>
+                  </div>
+                  <div className="font-mono text-2xs text-text-muted font-bold text-center tracking-widest uppercase">
+                    PORTFOLIO • RAHULDADHICH.DEV
+                  </div>
                 </div>
               </div>
-            </motion.nav>
+            </motion.div>
           </>
         )}
       </AnimatePresence>
-    </>
+    </header>
   );
 }

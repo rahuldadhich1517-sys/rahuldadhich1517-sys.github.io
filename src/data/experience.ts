@@ -17,7 +17,7 @@ export const experiences: ExperienceEntry[] = [
     role: "Web Developer (Full-Stack)",
     company: "Sumedha Softech Pvt. Ltd.",
     description:
-      "Worked as a Full-Stack Web Developer, building and maintaining production applications, improving application performance, implementing authentication systems, and creating reusable responsive UI components.",
+      "Built and maintained full-stack production web applications. I improved data-fetching speed and page performance, integrated Microsoft Entra ID (Azure AD) for secure user authentication, and created reusable UI components with React and Redux Toolkit.",
 
     technologies: [
       "React",
@@ -41,7 +41,7 @@ export const experiences: ExperienceEntry[] = [
     role: "Intern Web Developer",
     company: "Aaron Softech Pvt. Ltd.",
     description:
-      "Completed a 4-month internship as a Web Developer, building dynamic and responsive web applications using the MERN stack and contributing to real-world web development projects.",
+      "Worked as an intern building responsive web apps with the MERN stack (MongoDB, Express, React, Node.js). Collaborated on team projects, created REST API integrations, and practiced version control workflows with Git.",
 
     technologies: [
       "MongoDB",

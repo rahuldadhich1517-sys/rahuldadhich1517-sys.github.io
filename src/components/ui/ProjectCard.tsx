@@ -1,7 +1,7 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Github, ExternalLink, Layers, CheckCircle2 } from 'lucide-react';
 import { Project } from '../../data/projects';
 
 interface ProjectCardProps {
@@ -10,179 +10,131 @@ interface ProjectCardProps {
   isMobile?: boolean;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, isMobile = false }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
-
-  // 3D tilt effect on desktop only (disabled on touch devices)
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (isMobile) return;
-
-    // Check if device supports hover (not touch)
-    if (window.matchMedia('(hover: none)').matches) return;
-
-    const card = cardRef.current;
-    if (!card) return;
-
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-
-    const rotationX = ((y - centerY) / centerY) * 3;
-    const rotationY = ((centerX - x) / centerX) * 3;
-
-    setTilt({ x: rotationX, y: rotationY });
-  };
-
-  const handleMouseLeave = () => {
-    setTilt({ x: 0, y: 0 });
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        delay: index * 0.2,
-      },
-    },
-  };
-
+const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
+  const indexStr = String(index + 1).padStart(2, '0');
   const isAlternate = index % 2 === 1;
 
   return (
-    <motion.div
-      variants={cardVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
-      className={`grid gap-6 md:gap-10 items-center ${isAlternate ? 'md:grid-cols-2 md:[direction:rtl]' : 'md:grid-cols-2'}` }
+    <motion.article
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      className="border-2 border-border-primary bg-bg-secondary p-6 sm:p-8 lg:p-10"
     >
-      {/* Content side */}
-      <div className="flex flex-col justify-between">
-        {/* Project number */}
-        <div className="mb-6">
-          <span className="text-6xl md:text-7xl font-bold text-[#111111] leading-none">
-            {String(index + 1).padStart(2, '0')}
-          </span>
+      {/* Article Top Dateline Ribbon */}
+      <div className="flex flex-wrap items-center justify-between border-b border-border-subtle pb-3 mb-6 font-mono text-2xs uppercase tracking-widest text-text-muted font-semibold">
+        <div className="flex items-center gap-2">
+          <span className="w-2 h-2 bg-accent inline-block" />
+          <span className="font-bold text-text-primary">FEATURED PROJECT // {indexStr}</span>
+          <span>•</span>
+          <span className="font-bold text-text-primary">{project.category}</span>
         </div>
-
-        {/* Title */}
-        <div className="mb-4">
-          <h3 className="text-3xl md:text-4xl font-bold text-[#111111] mb-2">
-            {project.title}
-          </h3>
-          <div className="flex items-center gap-2">
-            <span
-              className="px-3 py-1 rounded text-xs font-semibold text-[#CC0000] border border-[#111111]/30 bg-[#F9F9F7]"
-            >
-              {project.category}
-            </span>
-            {project.year && (
-              <span className="text-xs text-[#737373]">{project.year}</span>
-            )}
-          </div>
-        </div>
-
-        {/* Description */}
-        <p className="text-[#737373] leading-relaxed mb-6 max-w-lg">
-          {project.description}
-        </p>
-
-        {/* Technologies */}
-        <div className="mb-8">
-          <p className="text-xs text-[#737373] uppercase tracking-widest mb-3">
-            Technologies Used
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {project.technologies.slice(0, 5).map((tech) => (
-              <span
-                key={tech}
-                className="px-3 py-1 rounded text-xs text-[#CC0000] border border-[#111111]/30 bg-[#F9F9F7] font-medium"
-              >
-                {tech}
-              </span>
-            ))}
-            {project.technologies.length > 5 && (
-              <span className="px-3 py-1 text-xs text-[#737373]">
-                +{project.technologies.length - 5} more
-              </span>
-            )}
-          </div>
-        </div>
-
-        {/* Links */}
-        <div className="flex gap-4 flex-wrap">
-          <Link
-            to={`/projects/${project.slug}`}
-            className="inline-flex items-center gap-2 px-6 py-3 border border-[#111111] text-[#111111] font-semibold hover:bg-[#F9F9F7] transition-all duration-200"
-          >
-            View Case Study
-            <ArrowUpRight size={18} />
-          </Link>
-          {project.liveUrl && (
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 border border-[#111111]/50 text-[#737373] font-semibold hover:border-[#111111] hover:text-[#111111] transition-all duration-200"
-            >
-              Live Demo
-              <ArrowUpRight size={18} />
-            </a>
+        <div className="flex items-center gap-3">
+          {project.year && <span>YEAR: {project.year}</span>}
+          {project.role && (
+            <>
+              <span className="hidden sm:inline">•</span>
+              <span className="hidden sm:inline font-bold text-text-primary">{project.role}</span>
+            </>
           )}
         </div>
       </div>
 
-      {/* Image side - with hard shadow hover effect */}
-      {/* <div
-        ref={cardRef}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        className="relative h-80 md:h-96 overflow-hidden group sharp-corners"
-        style={{
-          perspective: '1000px',
-          transform: isMobile
-            ? 'none'
-            : `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-          transition: !isMobile ? 'transform 0.1s ease-out' : 'none',
-        }}
-      > */}
-        {/* Image */}
-        {/* <img
-          src={project.image}
-          alt={project.title}
-          loading="lazy"
-          onLoad={() => setIsImageLoaded(true)}
-          className="w-full h-full object-cover grayscale transition-filter duration-300 group-hover:grayscale group-hover:sepia-[50%]"
-          style={{
-            opacity: isImageLoaded ? 1 : 0,
-            transition: 'opacity 0.3s ease-out',
-          }}
-        /> */}
-
-        {/* Hard shadow hover effect */}
-        {/* <div
-          className="absolute inset-0 hard-shadow-hover"
-          style={{
-            boxShadow: 'inset 0 0 30px transparent',
-          }}
-        /> */}
-
-        {/* Featured badge */}
-        {/* {project.featured && (
-          <div className="absolute top-4 right-4 px-3 py-1 border border-[#111111] text-[#CC0000] font-semibold text-xs uppercase tracking-wider">
-            Featured
+      {/* Main Asymmetric Grid */}
+      <div className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start ${isAlternate ? 'lg:flex-row-reverse' : ''}`}>
+        {/* Editorial Narrative Column (7 cols) */}
+        <div className="lg:col-span-7 space-y-6">
+          <div>
+            <div className="font-mono text-xs font-bold text-accent uppercase tracking-wider mb-2">
+              PROJECT #{indexStr}
+            </div>
+            <h3 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-bold text-text-primary tracking-tight leading-[1.08]">
+              {project.title}
+            </h3>
           </div>
-        )} */}
-      {/* </div> */}
-    </motion.div>
+
+          <p className="font-body text-base sm:text-lg text-text-primary leading-relaxed">
+            {project.description}
+          </p>
+
+          {/* Core Architecture Highlight */}
+          {project.architecture && (
+            <div className="border-l-2 border-border-primary pl-4 py-1">
+              <div className="font-mono text-2xs text-text-muted font-bold uppercase tracking-wider mb-1">
+                ARCHITECTURE HIGHLIGHT:
+              </div>
+              <p className="font-sans text-xs sm:text-sm text-text-primary font-medium leading-relaxed">
+                {project.architecture}
+              </p>
+            </div>
+          )}
+
+          {/* Key Result Ledger Point */}
+          {project.results && project.results.length > 0 && (
+            <div className="flex items-start gap-2 text-xs sm:text-sm text-text-muted">
+              <CheckCircle2 size={16} className="text-accent flex-shrink-0 mt-0.5" />
+              <span>
+                <strong className="text-text-primary font-bold">Key Result: </strong>
+                <span className="text-text-primary font-medium">{project.results[0]}</span>
+              </span>
+            </div>
+          )}
+
+          {/* Technologies Used */}
+          <div>
+            <div className="font-mono text-2xs text-text-muted font-bold uppercase tracking-wider mb-2.5">
+              TECH STACK:
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {project.technologies.map((tech) => (
+                <span
+                  key={tech}
+                  className="px-2.5 py-1 border border-border-primary bg-bg-primary font-mono text-xs text-text-primary font-semibold"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Action Links */}
+          <div className="pt-2 flex flex-wrap items-center gap-3">
+            <Link
+              to={`/projects/${project.slug}`}
+              className="btn btn--primary"
+            >
+              <span>Read Case Study</span>
+              <ArrowUpRight className="btn__icon" />
+            </Link>
+
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn--secondary"
+              >
+                <ExternalLink size={14} />
+                <span>Live Demo</span>
+              </a>
+            )}
+
+            {project.githubUrl && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn--secondary"
+              >
+                <Github size={14} />
+                <span>Source Code</span>
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </motion.article>
   );
 };
 

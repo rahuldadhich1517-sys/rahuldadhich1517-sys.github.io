@@ -1,37 +1,45 @@
-import { BrowserRouter as Router } from 'react-router-dom';
-import { Navbar } from './components/navbar/Navbar';
-import { Footer } from './components/sections/Footer';
-import Hero from './components/sections/Hero';
-import About from './components/sections/About';
-import Technology from './components/sections/Technology';
-import Projects from './components/sections/Projects';
-import Engineering from './components/sections/Engineering';
-import Experience from './components/sections/Experience';
-import { Contact } from './components/sections/Contact';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ErrorBoundary } from './components/ErrorBoundary';
+import { AppLayout } from './components/AppLayout';
+
+// Pages
+import HomePage from './pages/HomePage';
+import AboutPage from './pages/AboutPage';
+import SkillsPage from './pages/SkillsPage';
+import ExperiencePage from './pages/ExperiencePage';
+import ProjectsPage from './pages/ProjectsPage';
+import GitHubPage from './pages/GitHubPage';
+import PackagesPage from './pages/PackagesPage';
+import ResumePage from './pages/ResumePage';
+import ContactPage from './pages/ContactPage';
+import NotFoundPage from './pages/NotFoundPage';
+import VideosPage from './pages/VideosPage';
+import ProjectCaseStudy from './components/pages/ProjectCaseStudy';
 
 function App() {
   return (
-    <Router>
-      <div className="min-h-screen bg-background text-foreground flex flex-col sharp-corners">
-        <Navbar />
-        <main className="flex-1">
-          <Hero />
-
-          <About />
-
-          <Technology />
-
-
-          <Engineering />
-
-          <Experience />
-
-          <Projects />
-          <Contact />
-        </main>
-        <Footer />
-      </div>
-    </Router>
+    <ErrorBoundary>
+      <Router basename={import.meta.env.BASE_URL}>
+        <Routes>
+          <Route element={<AppLayout />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/skills" element={<SkillsPage />} />
+            <Route path="/experience" element={<ExperiencePage />} />
+            <Route path="/projects" element={<ProjectsPage />} />
+            <Route path="/projects/:slug" element={<ProjectCaseStudy />} />
+            <Route path="/github" element={<GitHubPage />} />
+            <Route path="/packages" element={<PackagesPage />} />
+            <Route path="/npm" element={<PackagesPage />} />
+            <Route path="/videos" element={<VideosPage />} />
+            <Route path="/reels" element={<VideosPage />} />
+            <Route path="/resume" element={<ResumePage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Route>
+        </Routes>
+      </Router>
+    </ErrorBoundary>
   );
 }
 

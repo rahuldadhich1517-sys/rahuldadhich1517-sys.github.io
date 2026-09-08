@@ -1,27 +1,55 @@
 :root {
-  --color-bg-primary: #f4f0e8;
-  --color-bg-secondary: #fffdf8;
-  --color-bg-surface: #e8e1d5;
-  --color-bg-card: #fffdf8;
-  --color-text-primary: #171717;
-  --color-text-secondary: #ded6c9;
-  --color-text-muted: #706b63;
-  --color-text-inverse: #f4f0e8;
-  --color-border-primary: #171717;
-  --color-border-strong: #171717;
-  --color-border-subtle: #c8c0b3;
-  --color-accent: #b52b22;
-  --font-serif: Georgia, 'Times New Roman', serif;
-  --font-sans: Arial, Helvetica, sans-serif;
-  --font-mono: 'Courier New', monospace;
-  --section-padding-x: clamp(1.25rem, 4vw, 5rem);
-  --section-padding-y: clamp(4rem, 9vw, 9rem);
-  --container-xl: 1440px;
+  /* Swiss Editorial Newsprint Palette - High Contrast */
+  --color-bg-primary: #F9F9F6;       /* Warm Newsprint Paper */
+  --color-bg-secondary: #FFFFFF;     /* Crisp Sheet White */
+  --color-bg-surface: #F0EDE6;       /* Shaded Newsprint Section */
+  --color-bg-subtle: #E6E2D8;        /* Ledger Paper tint */
+  --color-bg-card: #FFFFFF;          /* Pure editorial panel */
+  --color-bg-inverse: #0A0A0A;       /* Deep Solid Ink Fill for inverted blocks */
+
+  /* High-Contrast Print Ink Typography */
+  --color-text-primary: #0A0A0A;     /* Solid Deep Ink Black - Ultra High Contrast */
+  --color-text-secondary: #1C1B18;   /* Dark Charcoal Ink - Crisp & Fully Visible */
+  --color-text-muted: #33322E;       /* Deep Slate Ink for Metadata - Dark & Clear */
+  --color-text-inverse: #FFFFFF;     /* Pure White on dark fills */
+  --color-text-inverse-muted: #F0EDE6; /* Bright Paper on dark fills */
+
+  --color-border-primary: #0A0A0A;   /* 1px Solid Ink Rule */
+  --color-border-strong: #0A0A0A;    /* Structural Headline Rule */
+  --color-border-subtle: #C4BFB2;    /* Crisp Visible Divider */
+  --color-border-hairline: rgba(10, 10, 10, 0.28); /* Crisp print grid */
+
+  --color-accent: #CC0000;           /* Swiss Electric Red */
+  --color-accent-hover: #9E0000;     /* Deep Red */
+  --color-accent-subtle: rgba(204, 0, 0, 0.12);
+
+  /* Typography System */
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body: 'Lora', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Layout & Spacing */
+  --section-padding-x: clamp(1.25rem, 3.5vw, 4rem);
+  --section-padding-y: clamp(3.5rem, 7vw, 7.5rem);
+  --container-xl: 1380px;
+
+  /* Elevation & Interaction */
   --z-modal: 600;
   --z-modal-backdrop: 500;
-  --hard-shadow: 5px 5px 0 #171717;
-  --duration-fast: 160ms;
-  --duration-normal: 260ms;
-  --ease-out: cubic-bezier(.2,.8,.2,1);
+  --hard-shadow: 4px 4px 0px 0px #0A0A0A;
+  --hard-shadow-sm: 2px 2px 0px 0px #0A0A0A;
+  --hard-shadow-accent: 4px 4px 0px 0px #CC0000;
+
+  /* Motion */
+  --duration-fast: 150ms;
+  --duration-normal: 240ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
-@media (prefers-reduced-motion: reduce) { :root { --duration-fast: 0ms; --duration-normal: 0ms; } }
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0.01ms;
+    --duration-normal: 0.01ms;
+  }
+}

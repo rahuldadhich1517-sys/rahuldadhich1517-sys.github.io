@@ -91,7 +91,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ isOpen, onClose, isMobile 
                 className="p-2 rounded-lg hover:bg-bg-surface transition-colors"
                 aria-label="Close chat"
               >
-                <X size={20} className="text-text-muted" />
+                <X size={20} className="text-text-primary hover:text-accent" />
               </button>
             </motion.div>
 
@@ -104,8 +104,8 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ isOpen, onClose, isMobile 
                   className="h-full flex flex-col items-center justify-center text-center"
                 >
                   <span className="text-4xl mb-4">🤖</span>
-                  <p className="text-text-muted mb-2">Hi! I'm Rahul's AI assistant.</p>
-                  <p className="text-sm text-text-muted/70">
+                  <p className="text-text-primary font-bold mb-2">Hi! I'm Rahul's AI assistant.</p>
+                  <p className="text-sm text-text-muted font-medium">
                     Ask me about his skills, projects, experience, or anything related to his portfolio.
                   </p>
                 </motion.div>
@@ -126,8 +126,8 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ isOpen, onClose, isMobile 
                         : 'bg-bg-surface border border-border-primary text-text-primary'
                     }`}
                   >
-                    <p className="text-sm leading-relaxed break-words">{message.content}</p>
-                    <p className="text-xs text-text-muted mt-1 opacity-60">
+                    <p className="text-sm leading-relaxed break-words font-medium">{message.content}</p>
+                    <p className="text-xs text-text-muted mt-1 font-mono font-medium">
                       {message.timestamp.toLocaleTimeString([], {
                         hour: '2-digit',
                         minute: '2-digit',
@@ -203,14 +203,14 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ isOpen, onClose, isMobile 
                   onChange={(e) => setInputValue(e.target.value)}
                   placeholder="Ask me something..."
                   disabled={isLoading || !isServiceReady}
-                  className="flex-1 bg-bg-surface/50 border border-border-primary rounded-lg px-4 py-2 text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-primary/50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="flex-1 bg-bg-surface/50 border border-border-primary rounded-lg px-4 py-2 text-text-primary placeholder:text-text-muted/70 focus:outline-none focus:border-accent-primary/50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
                 />
                 <motion.button
                   type="submit"
                   disabled={isLoading || !inputValue.trim() || !isServiceReady}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-accent-primary hover:bg-accent-primary/80 disabled:bg-border-strong text-bg-primary disabled:text-text-muted rounded-lg p-2 font-medium transition-colors disabled:cursor-not-allowed"
+                  className="bg-accent-primary hover:bg-accent-primary/80 disabled:bg-border-strong text-bg-primary disabled:text-text-muted/60 rounded-lg p-2 font-medium transition-colors disabled:cursor-not-allowed"
                 >
                   {isLoading ? (
                     <Loader size={20} className="animate-spin" />
@@ -226,7 +226,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ isOpen, onClose, isMobile 
                   type="button"
                   onClick={() => clearMessages()}
                   disabled={isLoading}
-                  className="w-full mt-2 text-xs text-text-muted hover:text-text-secondary disabled:opacity-50 transition-colors"
+                  className="w-full mt-2 text-xs text-text-muted hover:text-text-primary disabled:opacity-50 font-semibold transition-colors"
                 >
                   Clear conversation
                 </motion.button>
