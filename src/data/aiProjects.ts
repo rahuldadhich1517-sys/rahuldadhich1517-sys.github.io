@@ -17,9 +17,9 @@ export const aiProjects: AIProject[] = [
   {
     id: 'ai-1',
     title: 'LLM Content Generation Pipeline',
-    description: 'Intelligent content generation system leveraging large language models for automated blog writing and documentation.',
+    description: 'A tool built with OpenAI and Node.js for drafting articles, blogs, and technical documentation.',
     longDescription:
-      'A sophisticated pipeline that uses advanced language models to generate high-quality content. Features include prompt engineering, response refinement, and multi-model orchestration.',
+      'A practical backend pipeline for generating draft content with language models. Handles prompt formatting, model parameter tuning, response validation, and Redis caching for faster repeat requests.',
     technologies: ['OpenAI API', 'Node.js', 'TypeScript', 'Redis', 'PostgreSQL'],
     architecture: ['API Gateway', 'LLM Service', 'Cache Layer', 'Database'],
     category: 'llm',
@@ -31,9 +31,9 @@ export const aiProjects: AIProject[] = [
   {
     id: 'ai-2',
     title: 'Retrieval-Augmented Generation System',
-    description: 'RAG system combining document indexing with LLM intelligence for context-aware question answering.',
+    description: 'Document QA tool that pairs vector search with language models to answer questions accurately from local files.',
     longDescription:
-      'Advanced RAG implementation with semantic search, vector embeddings, and intelligent retrieval. Enables accurate answers based on custom knowledge bases.',
+      'RAG pipeline that parses custom PDF and markdown documents, generates vector embeddings, and performs semantic search using Pinecone and LangChain to give precise answers.',
     technologies: ['LangChain', 'Pinecone', 'OpenAI', 'Express', 'React'],
     architecture: ['Vector Database', 'Semantic Search', 'LLM Integration', 'Frontend UI'],
     category: 'rag',
@@ -45,9 +45,9 @@ export const aiProjects: AIProject[] = [
   {
     id: 'ai-3',
     title: 'Autonomous AI Agent Framework',
-    description: 'Multi-agent system for complex task decomposition, execution, and result synthesis.',
+    description: 'Multi-agent setup that breaks down complex requests into steps, calls external tools, and summarizes results.',
     longDescription:
-      'Framework for building autonomous agents that can plan, execute, and adapt. Includes task decomposition, state management, and inter-agent communication.',
+      'A lightweight agent architecture where specialized agents coordinate to plan steps, execute API and database queries, and return synthesized output.',
     technologies: ['LangChain', 'OpenAI', 'Node.js', 'TypeScript', 'FastAPI'],
     architecture: ['Agent Core', 'Tool Integration', 'Memory System', 'Execution Engine'],
     category: 'agents',
@@ -59,9 +59,9 @@ export const aiProjects: AIProject[] = [
   {
     id: 'ai-4',
     title: 'Workflow Automation Engine',
-    description: 'No-code automation platform powered by AI for business process optimization.',
+    description: 'Automation tool that translates plain English task descriptions into runnable background jobs.',
     longDescription:
-      'Intelligent automation engine that understands natural language workflow descriptions and generates executable workflows.',
+      'Engine that interprets natural language instructions, generates structured step-by-step workflows, and runs them asynchronously with full error tracking.',
     technologies: ['Node.js', 'TypeScript', 'Express', 'PostgreSQL', 'Redis'],
     architecture: ['Workflow Parser', 'Execution Engine', 'Event System', 'Database'],
     category: 'automation',
@@ -73,9 +73,9 @@ export const aiProjects: AIProject[] = [
   {
     id: 'ai-5',
     title: 'Multi-Modal AI API Integration',
-    description: 'Unified interface for multiple AI APIs including vision, audio, and text processing.',
+    description: 'Unified API wrapper standardizing calls across OpenAI, Google, and Azure vision and audio services.',
     longDescription:
-      'Abstraction layer over multiple AI providers enabling seamless integration of vision, speech, and text capabilities.',
+      'A simple service layer that normalizes requests and responses across multiple AI providers, making it easy to swap models or combine vision and speech in one project.',
     technologies: ['OpenAI Vision', 'Google APIs', 'Azure Cognitive', 'Node.js', 'TypeScript'],
     architecture: ['API Gateway', 'Provider Router', 'Response Normalizer', 'Cache'],
     category: 'apis',
@@ -87,9 +87,9 @@ export const aiProjects: AIProject[] = [
   {
     id: 'ai-6',
     title: 'AI-Powered Code Assistant',
-    description: 'Intelligent code generation and debugging assistant with context awareness.',
+    description: 'A developer helper that uses project context to suggest code snippets and explain tricky bugs.',
     longDescription:
-      'Advanced code assistant that understands your project structure and generates contextually relevant code suggestions.',
+      'A lightweight in-editor assistant that scans project structure, interprets developer intent, and provides context-aware suggestions over WebSockets.',
     technologies: ['OpenAI Codex', 'React', 'Express', 'PostgreSQL', 'WebSocket'],
     architecture: ['Code Parser', 'Context Analyzer', 'LLM Integration', 'Real-time API'],
     category: 'llm',

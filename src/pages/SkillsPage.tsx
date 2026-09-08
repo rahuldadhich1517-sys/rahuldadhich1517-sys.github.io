@@ -1,123 +1,150 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { skills, Skill } from '../data/skills';
 import SkillGrid from '../components/ui/SkillGrid';
-import { skills } from '../data/skills';
+import SkillDetails from '../components/ui/SkillDetails';
 import useSEO from '../hooks/useSEO';
+import { ArrowUpRight } from 'lucide-react';
 
 const SkillsPage: React.FC = () => {
   useSEO({
-    title: 'Skills — Rahul Dadhich',
-    description: 'Technical expertise in React, TypeScript, Node.js, and modern web development technologies.',
+    title: 'Skills & Technical Directory — Rahul Dadhich',
+    description: 'A comprehensive technical index of languages, frameworks, cloud services, and developer tools.',
     url: 'https://rahuldadhich.dev/skills',
   });
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.05,
-      },
-    },
-  };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-      },
-    },
-  };
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [activeModalSkill, setActiveModalSkill] = useState<Skill | null>(null);
 
   const categories = Array.from(
     new Set(skills.map((skill) => skill.category))
   );
 
+  const filteredSkills = selectedCategory
+    ? skills.filter((s) => s.category === selectedCategory)
+    : skills;
+
   return (
-    <section className="relative w-full py-16 sm:py-24 md:py-32 px-4 sm:px-6 md:px-12 bg-[#F9F9F7] overflow-hidden sharp-corners">
-      <div className="relative z-10 max-w-7xl mx-auto">
-        {/* Page Header */}
-        <motion.div
-          variants={itemVariants}
-          initial="hidden"
-          animate="visible"
-          className="mb-12 md:mb-16"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#111111]/20 bg-[#CC0000]/20 text-[#CC0000] tracking-widest uppercase text-xs mb-8">
-            SKILLS
-          </div>
-          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold text-[#111111] leading-tight mb-6">
-            Technical Arsenal
+    <div className="w-full bg-bg-primary text-text-primary">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-12 sm:py-16 lg:py-20">
+        {/* Section Kicker */}
+        <div className="section-kicker mb-6">
+          <span>SKILLS & TECHNOLOGIES</span>
+        </div>
+
+        {/* Page Headline */}
+        <div className="mb-10 sm:mb-14 max-w-5xl">
+          <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-text-primary leading-[1.02] uppercase">
+            Skills & Tools: <br />
+            <span className="italic font-normal font-serif text-text-muted lowercase">languages,</span>{' '}
+            frameworks & cloud tools.
           </h1>
-          <p className="text-base md:text-lg text-[#737373] leading-relaxed max-w-2xl">
-            Technologies and tools I use to build modern web applications.
+          <p className="font-body text-base sm:text-xl text-text-primary leading-relaxed mt-4 max-w-3xl font-normal">
+            A complete directory of the languages, libraries, and tools I use in daily development
+            across frontend, backend, databases, and AI workflows.
           </p>
-        </motion.div>
+        </div>
 
-        {/* All Skills Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="mb-16 md:mb-24"
-        >
-          <h2 className="font-serif text-2xl md:text-3xl font-bold text-[#111111] mb-8">
-            All Technologies
-          </h2>
-          <SkillGrid skills={skills} />
-        </motion.div>
+        {/* Double Rule */}
+        <div className="editorial-double-rule mb-10" />
 
-        {/* Category Breakdown */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="space-y-16"
-        >
-          {categories.map((category) => {
-            const categorySkills = skills.filter(
-              (skill) => skill.category === category
-            );
+        {/* Main Skills Directory Grid */}
+        <div className="mb-16">
+          <SkillGrid skills={filteredSkills} />
+        </div>
+
+        {/* Detailed Domain Breakdown */}
+        <div className="space-y-16 pt-8 border-t-2 border-border-primary">
+          <div className="flex items-center justify-between">
+            <h2 className="font-serif text-2xl sm:text-4xl font-bold uppercase tracking-tight text-text-primary">
+              Detailed Breakdown by Category
+            </h2>
+            <span className="font-mono text-2xs text-text-muted font-bold uppercase">OVERVIEW</span>
+          </div>
+
+          {categories.map((category, catIndex) => {
+            const catIndexStr = String(catIndex + 1).padStart(2, '0');
+            const categorySkills = skills.filter((s) => s.category === category);
             return (
-              <div key={category}>
-                <h3 className="font-serif text-xl md:text-2xl font-bold text-[#111111] mb-6">
-                  {category}
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {categorySkills.map((skill) => (
-                    <motion.div
-                      key={skill.id}
-                      variants={itemVariants}
-                      className="p-6 border border-[#111111] hover:bg-[#F5F5F5] transition-colors"
-                    >
-                      <div className="flex items-center gap-3 mb-3">
-                        <skill.icon
-                          size={24}
-                          style={{ color: skill.color }}
-                        />
-                        <div>
-                          <h4 className="font-serif font-bold text-[#111111]">
-                            {skill.name}
-                          </h4>
-                          <p className="text-xs text-[#737373] uppercase tracking-wider">
-                            {skill.proficiency}
-                          </p>
+              <div key={category} className="border border-border-primary bg-bg-secondary">
+                {/* Category Header Bar */}
+                <div className="p-4 sm:p-6 bg-bg-surface border-b border-border-primary flex flex-wrap items-center justify-between gap-3">
+                  <div>
+                    <span className="font-mono text-xs font-bold text-accent uppercase tracking-widest block mb-1">
+                      CATEGORY // {catIndexStr}
+                    </span>
+                    <h3 className="font-serif text-2xl font-bold text-text-primary">
+                      {category}
+                    </h3>
+                  </div>
+                  <span className="font-mono text-xs px-2.5 py-1 border border-border-primary bg-bg-primary font-bold">
+                    {categorySkills.length} SKILLS
+                  </span>
+                </div>
+
+                {/* Table of Skills within Category */}
+                <div className="divide-y divide-border-subtle">
+                  {categorySkills.map((skill, sIdx) => {
+                    const Icon = skill.icon;
+                    return (
+                      <div
+                        key={skill.id}
+                        onClick={() => setActiveModalSkill(skill)}
+                        className="p-4 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:bg-bg-surface transition-colors cursor-pointer group"
+                      >
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 border border-border-primary bg-bg-primary flex items-center justify-center text-xl text-text-primary group-hover:border-accent group-hover:text-accent transition-colors flex-shrink-0">
+                            <Icon />
+                          </div>
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <h4 className="font-serif text-lg font-bold text-text-primary">
+                                {skill.name}
+                              </h4>
+                              <span className="font-mono text-[10px] px-2 py-0.5 border border-border-subtle uppercase text-accent font-bold">
+                                {skill.proficiency}
+                              </span>
+                            </div>
+                            <p className="font-sans text-xs text-text-primary font-normal mt-1 leading-relaxed max-w-xl">
+                              {skill.description}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-3 self-end md:self-center">
+                          <div className="hidden sm:flex flex-wrap gap-1.5 justify-end">
+                            {skill.relatedTechs.slice(0, 3).map((tech) => (
+                              <span
+                                key={tech}
+                                className="font-mono text-[10px] px-2 py-0.5 border border-border-subtle bg-bg-primary text-text-primary font-semibold"
+                              >
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                          <span className="font-mono text-2xs text-accent flex items-center gap-1 uppercase font-semibold">
+                            <span>DETAILS</span>
+                            <ArrowUpRight size={13} />
+                          </span>
                         </div>
                       </div>
-                      <p className="text-sm text-[#737373]">
-                        {skill.description}
-                      </p>
-                    </motion.div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             );
           })}
-        </motion.div>
+        </div>
       </div>
-    </section>
+
+      {/* Modal if clicked */}
+      {activeModalSkill && (
+        <SkillDetails
+          skill={activeModalSkill}
+          onClose={() => setActiveModalSkill(null)}
+        />
+      )}
+    </div>
   );
 };
 

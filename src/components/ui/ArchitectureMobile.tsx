@@ -87,7 +87,7 @@ const ArchitectureMobile: React.FC = () => {
                       >
                         {node.label}
                       </h3>
-                      <p className="text-xs text-text-muted mt-1">{node.description}</p>
+                      <p className="text-xs text-text-muted font-medium mt-1">{node.description}</p>
                     </div>
                     <ChevronDown
                       size={18}
@@ -119,7 +119,7 @@ const ArchitectureMobile: React.FC = () => {
                           <span style={{ color: node.color }} className="text-xs font-bold">
                             ▪
                           </span>
-                          <span className="text-xs text-text-secondary">{detail}</span>
+                          <span className="text-xs text-text-muted font-medium">{detail}</span>
                         </motion.div>
                       ))}
                     </motion.div>
@@ -139,7 +139,7 @@ const ArchitectureMobile: React.FC = () => {
         viewport={{ once: true }}
         className="mt-8 p-4 rounded-lg border border-border-primary bg-bg-surface/50 text-xs space-y-2"
       >
-        <p className="text-text-muted uppercase tracking-widest font-semibold mb-3">Layer Types</p>
+        <p className="text-text-muted uppercase tracking-widest font-bold mb-3">Layer Types</p>
         <div className="space-y-2">
           {[
             { type: 'Client Interface', color: '#61dafb' },
@@ -154,7 +154,7 @@ const ArchitectureMobile: React.FC = () => {
                 className="w-3 h-3 rounded-full flex-shrink-0"
                 style={{ backgroundColor: item.color }}
               />
-              <span className="text-text-secondary">{item.type}</span>
+              <span className="text-text-muted font-medium">{item.type}</span>
             </div>
           ))}
         </div>

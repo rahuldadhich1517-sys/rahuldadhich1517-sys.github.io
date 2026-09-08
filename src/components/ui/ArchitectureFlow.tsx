@@ -1,94 +1,66 @@
 import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Project } from '../../data/projects';
+import { ArrowDown } from 'lucide-react';
 
 interface ArchitectureFlowProps {
-  project: Project;
+  project?: Project;
 }
 
-// Define architecture flows for different project types
 const architectureFlows: { [key: string]: string[] } = {
-  'AI Content Generation Platform': [
-    'React Frontend',
-    'Next.js API Routes',
-    'Node.js Backend',
-    'OpenAI API',
-    'PostgreSQL Database',
+  'KomPublic Chatbot': [
+    'React & TypeScript Client UI',
+    'Microsoft Entra ID (Azure AD) Auth Layer',
+    'Secure REST API Gateway',
+    'Azure Cloud Bot Engine & Services',
+    'Persistent Municipal Case Database',
   ],
-  'E-Commerce Platform': [
-    'React Frontend',
-    'Express Server',
-    'Stripe API',
-    'MongoDB Database',
-    'Redis Cache',
+  'KomPublic Municipality Case Management': [
+    'React Client with Redux Toolkit Store',
+    'Shared API Data Caching Layer',
+    'RESTful Gateway (Danish Municipal Services)',
+    'Enterprise Backend Services',
+    'Municipal Case Tracking Database',
   ],
-  'Task Management Application': [
-    'React SPA',
-    'Firebase Auth',
-    'Firestore Database',
-    'Redux State',
-    'Real-time Sync',
-  ],
-  'Data Visualization Dashboard': [
-    'React + D3.js',
-    'WebSocket Server',
-    'Node.js Backend',
-    'Data Aggregation',
-    'PostgreSQL',
-  ],
-  'Mobile Fitness Companion': [
-    'React Native',
-    'Firebase Backend',
-    'Firebase Auth',
-    'Realtime Database',
-    'Cloud Storage',
-  ],
-  'AI Document Processing System': [
-    'React Frontend',
-    'Node.js API',
-    'Python AI Service',
-    'TensorFlow Models',
-    'PostgreSQL Database',
+  'Activate Everyware Chatbot': [
+    'React Flow Interactive Canvas UI',
+    'Custom Node & Edge State Machine',
+    'Conditional Branching & Logic Engine',
+    'Node.js REST API Backend',
+    'Flow Definition & Dialogue Store',
   ],
 };
 
 const ArchitectureFlow: React.FC<ArchitectureFlowProps> = ({ project }) => {
   const flow = useMemo(() => {
-    return (
-      architectureFlows[project.title] || [
-        'Frontend',
-        'API Layer',
-        'Backend',
-        'Database',
-      ]
-    );
-  }, [project.title]);
+    if (project && architectureFlows[project.title]) {
+      return architectureFlows[project.title];
+    }
+    return [
+      'Presentation Layer (React 19 + TypeScript)',
+      'State & Caching Layer (Redux Toolkit)',
+      'Secure Identity & API Gateway (Azure AD)',
+      'Business Logic Microservices (Node.js)',
+      'Data Persistence & Cloud Storage',
+    ];
+  }, [project]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
+        staggerChildren: 0.08,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
+    hidden: { opacity: 0, y: 10 },
     visible: {
       opacity: 1,
-      scale: 1,
-      transition: { duration: 0.5 },
-    },
-  };
-
-  const lineVariants = {
-    hidden: { scaleY: 0, originY: 0 },
-    visible: {
-      scaleY: 1,
-      transition: { duration: 0.8 },
+      y: 0,
+      transition: { duration: 0.35, ease: [0.16, 1, 0.3, 1] },
     },
   };
 
@@ -98,72 +70,44 @@ const ArchitectureFlow: React.FC<ArchitectureFlowProps> = ({ project }) => {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
-      className="flex flex-col items-center justify-center py-8"
+      className="flex flex-col items-center justify-center py-6 w-full"
     >
-      {flow.map((layer, index) => (
-        <div key={index}>
-          {/* Architecture layer */}
-          <motion.div
-            variants={itemVariants}
-            className="relative"
-          >
-            <div className="px-8 py-4 rounded-lg border-2 border-[#00ff88] bg-gradient-to-r from-[#00ff88]/10 to-[#00ff88]/5 text-center min-w-[200px]">
-              <p className="text-lg font-semibold text-[#00ff88]">{layer}</p>
+      <div className="w-full max-w-xl space-y-2">
+        {flow.map((layer, index) => {
+          const isLast = index === flow.length - 1;
+          const nodeNumber = String(index + 1).padStart(2, '0');
+
+          return (
+            <div key={index} className="flex flex-col items-center">
+              {/* Architecture Node Box */}
+              <motion.div
+                variants={itemVariants}
+                className="w-full border border-border-primary bg-bg-secondary p-4 flex items-center justify-between hover:bg-bg-primary transition-colors"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="font-mono text-2xs font-bold text-accent">
+                    NODE // {nodeNumber}
+                  </span>
+                  <span className="font-serif text-sm sm:text-base font-bold text-text-primary">
+                    {layer}
+                  </span>
+                </div>
+                <span className="font-mono text-[10px] text-text-muted font-bold uppercase hidden sm:inline">
+                  {index === 0 ? 'INGRESS' : isLast ? 'DATA STORE' : 'PROCESSING'}
+                </span>
+              </motion.div>
+
+              {/* Connecting Hairline Flow Rule */}
+              {!isLast && (
+                <div className="flex flex-col items-center my-1.5 text-text-muted">
+                  <div className="w-px h-5 bg-border-primary" />
+                  <ArrowDown size={13} className="text-accent -mt-1" />
+                </div>
+              )}
             </div>
-          </motion.div>
-
-          {/* Connecting line (except for last item) */}
-          {index < flow.length - 1 && (
-            <motion.div
-              variants={lineVariants}
-              className="relative my-4"
-              style={{
-                height: '32px',
-                width: '2px',
-                background: 'linear-gradient(to bottom, #00ff88, #00ff88/50)',
-                margin: '0 auto',
-              }}
-            >
-              {/* Arrow at bottom */}
-              <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 text-[#00ff88]">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <polyline points="8 2 14 8 8 14"></polyline>
-                </svg>
-              </div>
-            </motion.div>
-          )}
-        </div>
-      ))}
-
-      {/* Legend for complex architectures */}
-      {flow.length > 4 && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          viewport={{ once: true }}
-          className="mt-12 p-4 rounded-lg border border-[#00ff88]/20 bg-[#00ff88]/5 text-sm text-gray-300 max-w-md"
-        >
-          <p className="text-[#00ff88] font-semibold mb-2">Architecture Overview</p>
-          <ul className="space-y-1 text-xs">
-            {flow.map((layer, index) => (
-              <li key={index} className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#00ff88] flex-shrink-0" />
-                {layer}
-              </li>
-            ))}
-          </ul>
-        </motion.div>
-      )}
+          );
+        })}
+      </div>
     </motion.div>
   );
 };

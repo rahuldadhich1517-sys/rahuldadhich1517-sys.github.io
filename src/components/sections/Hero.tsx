@@ -1,93 +1,215 @@
+import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, ChevronDown } from 'lucide-react';
+import { ArrowUpRight, FileText, ArrowDown } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
-const Hero = () => {
+const Hero: React.FC = () => {
   return (
-    <section
-      className="relative w-full min-h-screen bg-background text-foreground overflow-hidden sharp-corners"
-      style={{ paddingTop: '74px' }}
-    >
-      <div className="container mx-auto px-0">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-0">
-          {/* Main Column */}
-          <div className="md:col-span-7 py-16 md:py-24 lg:py-32 px-4 sm:px-6 md:px-8 border-r border-border-primary md:border-r">
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
-              {/* Kicker */}
-              <div className="section-kicker mb-8 md:mb-12">
-                <span>Issue 01 / 2026</span>
-              </div>
-
-              {/* Headline */}
-              <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-tight md:leading-snug font-bold mb-6 md:mb-8">
-                Building Digital Experiences
-              </h1>
-
-              {/* Subhead */}
-              <p className="font-mono text-xs md:text-sm tracking-widest text-text-muted mb-6 uppercase">
-                Software Developer • AI Engineer • Content Creator
-              </p>
-
-              {/* Introduction */}
-              <p className="text-base md:text-lg leading-relaxed text-text-muted max-w-md mb-8 md:mb-12">
-                I craft scalable web applications, thoughtful interfaces, and intelligent systems. Currently exploring the intersection of AI and product design.
-              </p>
-
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 mb-12 md:mb-16">
-                <a href="#projects" className="btn btn--primary">
-                  View Work <ArrowRight className="btn__icon" aria-hidden="true" />
-                </a>
-                <a href="#contact" className="btn btn--secondary">
-                  Get In Touch
-                </a>
-              </div>
-
-              {/* Availability Badge */}
-              <div className="border border-border-primary p-4 md:p-6">
-                <div className="flex items-center gap-3 mb-2">
-                  <span className="inline-block w-2 h-2 bg-accent"></span>
-                  <span className="font-mono text-xs tracking-widest text-accent uppercase">Available for projects</span>
-                </div>
-                <p className="text-sm text-text-muted">
-                  Open to freelance, contract, and full-time opportunities in web development, AI integration, and product design.
-                </p>
-              </div>
-            </motion.div>
+    <section className="relative w-full bg-bg-primary text-text-primary border-b-2 border-border-primary overflow-hidden">
+      {/* Front-Page Issue Dateline */}
+      <div className="border-b border-border-primary bg-bg-surface py-2 px-4 sm:px-6 lg:px-12">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2 font-mono text-2xs uppercase tracking-widest text-text-muted font-semibold">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 bg-accent inline-block" />
+            <span className="font-bold text-text-primary">PORTFOLIO // 2026</span>
+            <span className="hidden md:inline">•</span>
+            <span className="hidden md:inline">FULL-STACK & AI DEVELOPMENT</span>
           </div>
 
-          {/* Right Column - Stats/Quick Info */}
-          <div className="md:col-span-5 hidden md:flex items-center justify-center py-24 lg:py-32 px-8 bg-surface border-l border-border-primary">
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.2 }}>
-              <div className="space-y-12 text-center md:text-left">
-                <div className="border-b border-border-subtle pb-8">
-                  <div className="text-4xl font-bold font-serif text-accent mb-2">50+</div>
-                  <p className="text-sm text-text-muted tracking-wide">Projects Delivered</p>
-                </div>
-                <div className="border-b border-border-subtle pb-8">
-                  <div className="text-4xl font-bold font-serif text-accent mb-2">8+</div>
-                  <p className="text-sm text-text-muted tracking-wide">Years Experience</p>
-                </div>
-                <div>
-                  <div className="text-4xl font-bold font-serif text-accent mb-2">10+</div>
-                  <p className="text-sm text-text-muted tracking-wide">Technologies</p>
-                </div>
-              </div>
-            </motion.div>
+          <div className="hidden lg:flex items-center gap-4">
+            <span>RAHUL DADHICH</span>
+            <span>•</span>
+            <span>FULL STACK DEVELOPER × AI ENGINEER</span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span className="text-text-primary font-bold">JAIPUR, INDIA (UTC+5:30)</span>
           </div>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <motion.div
-        className="absolute bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2"
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-      >
-        <div className="text-center">
-          <p className="text-xs font-mono tracking-widest text-text-muted uppercase">Scroll to explore</p>
-          <ChevronDown size={20} className="mx-auto text-accent" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-10 sm:py-14 lg:py-16">
+        {/* Newspaper Section Kicker */}
+        <div className="mb-6 flex items-center justify-between border-b border-border-subtle pb-3">
+          <div className="section-kicker">
+            <span>INTRODUCTION</span>
+          </div>
+          <span className="font-mono text-2xs text-text-muted uppercase tracking-widest hidden sm:inline font-semibold">
+            PORTFOLIO // RAHUL DADHICH
+          </span>
         </div>
-      </motion.div>
+
+        {/* Master Typographic Headline */}
+        <div className="mb-10 sm:mb-14">
+          <motion.h1
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-text-primary tracking-tighter leading-[0.98] uppercase"
+          >
+            Building Fast, Reliable <br className="hidden sm:inline" />
+            Web Applications <br />
+            <span className="italic font-normal font-serif text-text-muted lowercase">and</span>{' '}
+            Modern AI Tools.
+          </motion.h1>
+        </div>
+
+        {/* Double Rule separating headline from editorial columns */}
+        <div className="editorial-double-rule mb-10" />
+
+        {/* Main Editorial Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          {/* Left / Lead Editorial Column (7 cols) */}
+          <div className="lg:col-span-7 flex flex-col justify-between space-y-8">
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="space-y-6"
+            >
+              {/* Lead Paragraph */}
+              <p className="font-body text-lg sm:text-xl md:text-2xl text-text-primary leading-relaxed font-normal">
+                <span className="font-serif font-bold text-3xl sm:text-4xl text-accent float-left mr-3 leading-none">
+                  I
+                </span>
+                build clean, reliable web applications and practical AI tools.
+                I focus on writing maintainable code, designing responsive interfaces,
+                and building dependable backend services that solve real problems.
+              </p>
+
+              {/* Secondary Editorial Commentary */}
+              <p className="font-sans text-sm sm:text-base text-text-muted leading-relaxed font-medium">
+                I work mainly with React, TypeScript, Node.js, and modern AI APIs.
+                Previously, I built and improved production apps for Danish municipalities, created visual workflow tools
+                using React Flow, and published open-source developer libraries on npm.
+              </p>
+
+              {/* Action Buttons */}
+              <div className="pt-2 flex flex-wrap items-center gap-3 sm:gap-4">
+                <a href="#projects" className="btn btn--primary btn--lg">
+                  <span>View Projects</span>
+                  <ArrowUpRight className="btn__icon" />
+                </a>
+                <a href="#contact" className="btn btn--secondary btn--lg">
+                  <span>Get in Touch</span>
+                </a>
+                <a
+                  href="/Resume.pdf"
+                  download="Resume.pdf"
+                  className="btn btn--secondary btn--lg"
+                  aria-label="Download Resume (PDF)"
+                >
+                  <FileText className="w-4 h-4" />
+                  <span>Download Resume</span>
+                </a>
+              </div>
+            </motion.div>
+
+            {/* Notice of Availability Box */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="border-l-4 border-accent border-y border-r border-border-primary bg-bg-secondary p-5 sm:p-6"
+            >
+              <div className="flex items-center gap-2 mb-2 font-mono text-2xs font-bold text-accent uppercase tracking-widest">
+                <span className="w-2 h-2 bg-accent inline-block" />
+                <span>Current Availability // 2026</span>
+              </div>
+              <p className="font-sans text-xs sm:text-sm text-text-muted font-medium leading-relaxed">
+                Available for full-time engineering roles, contract projects, and consulting.
+                Specializing in frontend engineering, full-stack TypeScript, and AI integrations.
+              </p>
+            </motion.div>
+          </div>
+
+          {/* Right / Telemetry & Credentials Ledger (5 cols) */}
+          <div className="lg:col-span-5 space-y-6">
+            <div className="border border-border-primary bg-bg-secondary p-6 sm:p-8">
+              {/* Box Header */}
+              <div className="border-b-2 border-border-primary pb-3 mb-6 flex items-center justify-between">
+                <h2 className="font-mono text-xs font-bold uppercase tracking-widest text-text-primary">
+                  AT A GLANCE
+                </h2>
+                <span className="font-mono text-2xs text-accent font-bold uppercase">2026</span>
+              </div>
+
+              {/* Tabular Ledger Rows */}
+              <div className="divide-y divide-border-subtle">
+                <div className="py-4 flex items-baseline justify-between">
+                  <span className="font-mono text-xs uppercase tracking-wider text-text-muted font-bold">
+                    EXPERIENCE
+                  </span>
+                  <div className="text-right">
+                    <span className="font-serif text-2xl sm:text-3xl font-bold text-text-primary">
+                      2+ Years
+                    </span>
+                    <p className="font-mono text-2xs text-text-muted font-semibold">Full-Stack Development</p>
+                  </div>
+                </div>
+
+                <div className="py-4 flex items-baseline justify-between">
+                  <span className="font-mono text-xs uppercase tracking-wider text-text-muted font-bold">
+                    PROJECTS
+                  </span>
+                  <div className="text-right">
+                    <span className="font-serif text-2xl sm:text-3xl font-bold text-text-primary">
+                      10+ Projects
+                    </span>
+                    <p className="font-mono text-2xs text-text-muted font-semibold">Built & Shipped</p>
+                  </div>
+                </div>
+
+                <div className="py-4 flex items-baseline justify-between">
+                  <span className="font-mono text-xs uppercase tracking-wider text-text-muted font-bold">
+                    TECH STACK
+                  </span>
+                  <div className="text-right">
+                    <span className="font-serif text-2xl sm:text-3xl font-bold text-text-primary">
+                      Modern Web
+                    </span>
+                    <p className="font-mono text-2xs text-text-muted font-semibold">React • TypeScript • Node • Azure</p>
+                  </div>
+                </div>
+
+                <div className="py-4 flex items-baseline justify-between">
+                  <span className="font-mono text-xs uppercase tracking-wider text-text-muted font-bold">
+                    OPEN SOURCE
+                  </span>
+                  <div className="text-right">
+                    <span className="font-serif text-2xl sm:text-3xl font-bold text-accent">
+                      NPM Author
+                    </span>
+                    <p className="font-mono text-2xs text-text-muted font-semibold">Public packages & tools</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Running Bottom Discipline Ticker */}
+        <div className="mt-12 pt-6 border-t border-border-primary flex flex-wrap items-center justify-between gap-4 font-mono text-2xs tracking-widest text-text-muted font-bold uppercase">
+          <div className="flex items-center gap-1.5">
+            <ArrowDown className="w-3.5 h-3.5 text-accent animate-bounce" />
+            <span className="text-text-primary">SCROLL DOWN TO EXPLORE MY WORK</span>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3">
+            <span>TYPESCRIPT</span>
+            <span>•</span>
+            <span>REACT 19</span>
+            <span>•</span>
+            <span>NODE.JS</span>
+            <span>•</span>
+            <span>REDUX TOOLKIT</span>
+            <span>•</span>
+            <span>AZURE AD</span>
+            <span>•</span>
+            <span>AI INTEGRATION</span>
+          </div>
+        </div>
+      </div>
     </section>
   );
 };

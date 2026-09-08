@@ -1,83 +1,62 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { projects } from '../../data/projects';
 import ProjectCard from '../ui/ProjectCard';
-import { usePrefersReducedMotion } from '../../hooks/useReducedMotion';
-import { cardStaggerVariants, itemFadeUpVariants, getVariants } from '../../animations/transitionVariants';
+import { Link } from 'react-router-dom';
+import { ArrowUpRight } from 'lucide-react';
 
 const Projects: React.FC = () => {
-  const [isMobile, setIsMobile] = React.useState(false);
-  const prefersReducedMotion = usePrefersReducedMotion();
-
-  React.useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  const labelVariants = getVariants(prefersReducedMotion, itemFadeUpVariants);
-  const cardStaggerVariantsResolved = getVariants(prefersReducedMotion, cardStaggerVariants);
-
   return (
     <section
       id="projects"
-      className="relative w-full py-16 sm:py-24 md:py-32 px-4 sm:px-6 md:px-12 bg-[#F9F9F7] overflow-hidden sharp-corners"
+      className="relative w-full py-16 sm:py-24 px-4 sm:px-6 lg:px-12 bg-bg-primary text-text-primary border-b border-border-primary"
     >
-      <div className="relative z-10 max-w-7xl mx-auto">
-        {/* Section Header */}
-        <motion.div
-          variants={labelVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-          className="mb-4 md:mb-8"
-        >
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#111111]/20 bg-[#CC0000]/20 text-[#CC0000] tracking-widest uppercase text-xs">
-            05 / SELECTED WORK
+      <div className="max-w-7xl mx-auto">
+        {/* Editorial Section Kicker & Header Bar */}
+        <div className="flex flex-wrap items-center justify-between border-b border-border-subtle pb-3 mb-8 sm:mb-12">
+          <div className="section-kicker">
+            <span>FEATURED WORK // PROJECTS</span>
+          </div>
+          <span className="font-mono text-2xs text-text-muted font-semibold uppercase tracking-widest">
+            CASE STUDIES
           </span>
-        </motion.div>
+        </div>
 
-        {/* Headline - Staggered reveal */}
-        <motion.div
-          variants={cardStaggerVariantsResolved}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-          className="mb-20 md:mb-32"
-        >
-          {['PROJECTS', 'THAT SOLVE', 'REAL PROBLEMS.'].map((line, index) => (
-            <motion.h2
-              key={index}
-              variants={itemFadeUpVariants}
-              className="font-serif text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-[#111111] leading-tight"
+        {/* Section Headline */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end mb-10 sm:mb-14">
+          <div className="lg:col-span-8">
+            <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-text-primary leading-[1.08] uppercase">
+              Featured Projects <br />
+              <span className="italic font-normal font-serif text-text-muted lowercase">and</span>{' '}
+              real-world solutions.
+            </h2>
+          </div>
+          <div className="lg:col-span-4 lg:text-right">
+            <p className="font-sans text-xs sm:text-sm text-text-muted font-medium leading-relaxed mb-3">
+              In-depth case studies covering how I designed the architecture, solved technical challenges, and delivered real results.
+            </p>
+            <Link
+              to="/projects"
+              className="inline-flex items-center gap-1.5 font-mono text-xs font-bold text-accent uppercase tracking-wider hover:underline"
             >
-              {line}
-            </motion.h2>
-          ))}
-        </motion.div>
+              <span>View All Projects ({projects.length})</span>
+              <ArrowUpRight size={14} />
+            </Link>
+          </div>
+        </div>
 
-        {/* Projects Grid - Staggered card reveal */}
-        <motion.div
-          variants={cardStaggerVariantsResolved}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-          className="space-y-24 md:space-y-32"
-        >
+        {/* Double Rule */}
+        <div className="editorial-double-rule mb-12" />
+
+        {/* Projects Stream */}
+        <div className="space-y-12 sm:space-y-16">
           {projects.map((project, index) => (
-            <motion.div key={project.id} variants={itemFadeUpVariants}>
-              <ProjectCard
-                project={project}
-                index={index}
-                isMobile={isMobile}
-              />
-            </motion.div>
+            <ProjectCard
+              key={project.id}
+              project={project}
+              index={index}
+            />
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

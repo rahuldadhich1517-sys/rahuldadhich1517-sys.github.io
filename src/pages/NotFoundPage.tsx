@@ -1,101 +1,107 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Home } from 'lucide-react';
+import { useNavigate, Link } from 'react-router-dom';
+import { ArrowLeft, Home, Compass, ArrowUpRight } from 'lucide-react';
+import useSEO from '../hooks/useSEO';
 
 const NotFoundPage: React.FC = () => {
   const navigate = useNavigate();
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-      },
-    },
-  };
+  useSEO({
+    title: '404 — Page Not Found — Rahul Dadhich',
+    description: 'The requested page does not exist on this portfolio website.',
+    url: 'https://rahuldadhich.dev/404',
+  });
 
   return (
-    <section className="relative w-full min-h-[calc(100vh-74px)] flex items-center justify-center px-4 sm:px-6 md:px-12 bg-[#F9F9F7] overflow-hidden sharp-corners">
+    <div className="w-full min-h-[80vh] bg-bg-primary text-text-primary flex items-center justify-center px-4 sm:px-6 py-16">
       <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="text-center max-w-md"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="max-w-xl w-full border-2 border-border-primary bg-bg-secondary p-8 sm:p-12 shadow-hard space-y-8"
       >
-        <motion.div variants={itemVariants} className="mb-8">
-          <h1 className="font-serif text-9xl md:text-10xl font-bold text-[#CC0000] leading-none">
-            404
+        {/* Dateline Header */}
+        <div className="flex items-center justify-between border-b border-border-primary pb-3 font-mono text-2xs uppercase tracking-widest text-text-muted font-semibold">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 bg-accent inline-block" />
+            <span className="font-bold text-text-primary">404 // NOT FOUND</span>
+          </div>
+          <span className="font-bold text-text-primary">PAGE NOT FOUND</span>
+        </div>
+
+        {/* 404 Big Numerals & Headline */}
+        <div className="space-y-3">
+          <div className="font-serif text-7xl sm:text-9xl font-black text-text-primary tracking-tighter leading-none">
+            404<span className="text-accent">.</span>
+          </div>
+          <h1 className="font-serif text-2xl sm:text-4xl font-bold uppercase tracking-tight text-text-primary leading-tight">
+            Page Not Found.
           </h1>
-        </motion.div>
-
-        <motion.div variants={itemVariants} className="mb-6">
-          <h2 className="font-serif text-3xl md:text-4xl font-bold text-[#111111] mb-4">
-            Page Not Found
-          </h2>
-          <p className="text-base md:text-lg text-[#737373] leading-relaxed">
-            The page you're looking for doesn't exist. Let's get you back on track.
+          <p className="font-body text-sm sm:text-base text-text-primary leading-relaxed font-normal">
+            The page you are looking for doesn't exist, has been moved, or the link is incorrect.
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          variants={itemVariants}
-          className="flex flex-col sm:flex-row gap-3 justify-center"
-        >
+        {/* Double Rule */}
+        <div className="editorial-double-rule" />
+
+        {/* Action Triggers */}
+        <div className="flex flex-col sm:flex-row gap-3">
           <button
             onClick={() => navigate('/')}
-            className="btn btn--primary flex items-center justify-center gap-2"
+            className="btn btn--primary flex-1 flex items-center justify-center gap-2"
           >
-            <Home size={18} />
-            <span>Go Home</span>
+            <Home size={15} />
+            <span>Back to Homepage</span>
           </button>
           <button
             onClick={() => navigate(-1)}
-            className="btn btn--secondary flex items-center justify-center gap-2"
+            className="btn btn--secondary flex-1 flex items-center justify-center gap-2"
           >
-            <ArrowLeft size={18} />
+            <ArrowLeft size={15} />
             <span>Go Back</span>
           </button>
-        </motion.div>
+        </div>
 
-        <motion.div
-          variants={itemVariants}
-          className="mt-12 pt-8 border-t border-[#111111]/20"
-        >
-          <p className="text-sm text-[#737373] mb-4">
-            Or explore these sections:
-          </p>
-          <div className="flex flex-wrap gap-2 justify-center">
-            {[
-              { label: 'Home', path: '/' },
-              { label: 'About', path: '/about' },
-              { label: 'Projects', path: '/projects' },
-              { label: 'GitHub', path: '/github' },
-            ].map((link) => (
-              <button
-                key={link.path}
-                onClick={() => navigate(link.path)}
-                className="text-xs px-3 py-1.5 border border-[#111111]/30 text-[#111111] hover:border-[#CC0000] hover:text-[#CC0000] transition-colors uppercase tracking-wider font-medium"
-              >
-                {link.label}
-              </button>
-            ))}
+        {/* Direct Section Index */}
+        <div className="pt-4 border-t border-border-subtle">
+          <span className="font-mono text-2xs text-text-muted uppercase tracking-wider block mb-3 font-bold">
+            QUICK NAVIGATION:
+          </span>
+          <div className="grid grid-cols-2 gap-2 font-mono text-xs">
+            <Link
+              to="/about"
+              className="p-2 border border-border-subtle hover:border-border-primary hover:bg-bg-surface transition-colors flex items-center justify-between text-text-primary font-semibold"
+            >
+              <span>ABOUT</span>
+              <ArrowUpRight size={12} className="text-text-primary" />
+            </Link>
+            <Link
+              to="/skills"
+              className="p-2 border border-border-subtle hover:border-border-primary hover:bg-bg-surface transition-colors flex items-center justify-between text-text-primary font-semibold"
+            >
+              <span>SKILLS</span>
+              <ArrowUpRight size={12} className="text-text-primary" />
+            </Link>
+            <Link
+              to="/projects"
+              className="p-2 border border-border-subtle hover:border-border-primary hover:bg-bg-surface transition-colors flex items-center justify-between text-text-primary font-semibold"
+            >
+              <span>PROJECTS</span>
+              <ArrowUpRight size={12} className="text-text-primary" />
+            </Link>
+            <Link
+              to="/contact"
+              className="p-2 border border-border-subtle hover:border-border-primary hover:bg-bg-surface transition-colors flex items-center justify-between text-text-primary font-semibold"
+            >
+              <span>CONTACT</span>
+              <ArrowUpRight size={12} className="text-text-primary" />
+            </Link>
           </div>
-        </motion.div>
+        </div>
       </motion.div>
-    </section>
+    </div>
   );
 };
 

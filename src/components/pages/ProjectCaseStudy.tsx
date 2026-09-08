@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Github, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Github, ExternalLink, ChevronLeft, ChevronRight, CheckCircle2, Layers, AlertCircle, Cpu } from 'lucide-react';
 import { getProjectBySlug, projects } from '../../data/projects';
 import ArchitectureFlow from '../ui/ArchitectureFlow';
 
@@ -20,15 +20,23 @@ const ProjectCaseStudy: React.FC = () => {
 
   if (!project) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center px-6" style={{ backgroundColor: '#050505' }}>
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-white mb-4">Project Not Found</h1>
+      <div className="min-h-[70vh] bg-bg-primary text-text-primary flex items-center justify-center px-6 py-24">
+        <div className="text-center max-w-md border-2 border-border-primary p-8 bg-bg-secondary shadow-hard">
+          <span className="font-mono text-xs text-accent uppercase tracking-widest font-bold block mb-2">
+            NOT FOUND
+          </span>
+          <h1 className="font-serif text-3xl font-bold text-text-primary mb-4">
+            Project Not Found
+          </h1>
+          <p className="font-sans text-xs sm:text-sm text-text-muted font-medium mb-6 leading-relaxed">
+            The project you are looking for does not exist or has been moved.
+          </p>
           <Link
-            to="/#projects"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[#00ff88] text-black font-semibold rounded-lg hover:bg-[#00ff88]/90 transition-all"
+            to="/projects"
+            className="btn btn--primary inline-flex items-center gap-2"
           >
-            <ArrowLeft size={18} />
-            Back to Projects
+            <ArrowLeft size={16} />
+            <span>Back to Projects</span>
           </Link>
         </div>
       </div>
@@ -38,453 +46,286 @@ const ProjectCaseStudy: React.FC = () => {
   const prevProject = currentIndex > 0 ? projects[currentIndex - 1] : null;
   const nextProject = currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null;
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6 },
-    },
-  };
-
-  const sectionVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6 },
-    },
-  };
-
   return (
-    <div className="min-h-screen bg-black" style={{ backgroundColor: '#050505' }}>
-      {/* Hero Header */}
-      <div className="relative py-12 md:py-20 px-6 md:px-12 border-b border-[#00ff88]/20">
-        {/* Background accent */}
-        <div
-          className="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl pointer-events-none"
-          style={{
-            background: 'radial-gradient(circle, rgba(0, 255, 136, 0.1) 0%, transparent 70%)',
-          }}
-        />
-
-        <div className="relative z-10 max-w-7xl mx-auto">
-          <Link
-            to="/#projects"
-            className="inline-flex items-center gap-2 text-[#00ff88] hover:text-white transition-colors mb-8 group"
-          >
-            <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
-            Back to Projects
-          </Link>
-
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            {/* Project number and category */}
-            <motion.div variants={itemVariants} className="mb-4 flex items-center gap-4">
-              <span className="text-sm font-mono text-gray-400 tracking-widest uppercase">
-                PROJECT / {String(currentIndex + 1).padStart(2, '0')}
-              </span>
-              {project.category && (
-                <span className="px-3 py-1 rounded-full text-xs font-semibold text-[#00ff88] border border-[#00ff88]/30 bg-[#00ff88]/5">
-                  {project.category}
-                </span>
-              )}
-            </motion.div>
-
-            {/* Title */}
-            <motion.h1
-              variants={itemVariants}
-              className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
-            >
-              {project.title}
-            </motion.h1>
-
-            {/* Description */}
-            <motion.p
-              variants={itemVariants}
-              className="text-lg md:text-xl text-gray-300 max-w-3xl mb-8 leading-relaxed"
-            >
-              {project.longDescription || project.description}
-            </motion.p>
-
-            {/* Technologies */}
-            <motion.div variants={itemVariants} className="mb-8">
-              <p className="text-xs text-gray-400 uppercase tracking-widest mb-3">
-                Technologies
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {project.technologies.map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-3 py-1 rounded-lg text-xs bg-[#00ff88]/10 text-[#00ff88] border border-[#00ff88]/20 font-medium"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Action buttons */}
-            <motion.div variants={itemVariants} className="flex gap-4 flex-wrap">
-              {project.githubUrl && (
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-black border border-[#00ff88]/50 text-[#00ff88] font-semibold rounded-lg hover:border-[#00ff88] hover:bg-[#00ff88]/10 transition-all"
-                >
-                  <Github size={18} />
-                  View Code
-                </a>
-              )}
-              {project.liveUrl && (
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-[#00ff88] text-black font-semibold rounded-lg hover:bg-[#00ff88]/90 transition-all"
-                >
-                  <ExternalLink size={18} />
-                  Live Demo
-                </a>
-              )}
-            </motion.div>
-
-            {/* Meta information */}
-            {(project.year || project.role || project.team) && (
-              <motion.div
-                variants={itemVariants}
-                className="flex flex-wrap gap-6 md:gap-12 pt-8 mt-8 border-t border-[#00ff88]/20"
-              >
-                {project.year && (
-                  <div>
-                    <p className="text-xs text-gray-400 uppercase tracking-widest mb-1">
-                      Year
-                    </p>
-                    <p className="text-lg font-semibold text-white">{project.year}</p>
-                  </div>
-                )}
-                {project.role && (
-                  <div>
-                    <p className="text-xs text-gray-400 uppercase tracking-widest mb-1">
-                      Role
-                    </p>
-                    <p className="text-lg font-semibold text-white">{project.role}</p>
-                  </div>
-                )}
-                {project.team && (
-                  <div>
-                    <p className="text-xs text-gray-400 uppercase tracking-widest mb-1">
-                      Team
-                    </p>
-                    <p className="text-lg font-semibold text-white">{project.team}</p>
-                  </div>
-                )}
-              </motion.div>
-            )}
-          </motion.div>
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="py-20 md:py-32 px-6 md:px-12">
-        <div className="max-w-7xl mx-auto space-y-24">
-          {/* Hero Image */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="rounded-xl overflow-hidden border border-[#00ff88]/20 h-96 md:h-[500px]"
-          >
-            <img
-              src={project.image}
-              alt={project.title}
-              className="w-full h-full object-cover"
-            />
-          </motion.div>
-
-          {/* The Problem Section */}
-          {project.challenges && project.challenges.length > 0 && (
-            <motion.section
-              variants={sectionVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="space-y-6"
-            >
-              <div>
-                <h2 className="text-4xl md:text-5xl font-bold text-white mb-2">
-                  THE PROBLEM
-                </h2>
-                <div className="h-1 w-16 bg-[#00ff88]" />
-              </div>
-              <div className="grid md:grid-cols-2 gap-8">
-                {project.challenges.map((challenge, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    className="p-6 rounded-lg border border-[#00ff88]/20 bg-[#00ff88]/5"
-                  >
-                    <div className="flex gap-4">
-                      <span className="text-[#00ff88] font-bold flex-shrink-0 text-xl">
-                        ●
-                      </span>
-                      <p className="text-gray-300 leading-relaxed">{challenge}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.section>
-          )}
-
-          {/* The Solution Section */}
-          {project.solutions && project.solutions.length > 0 && (
-            <motion.section
-              variants={sectionVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="space-y-6"
-            >
-              <div>
-                <h2 className="text-4xl md:text-5xl font-bold text-white mb-2">
-                  THE SOLUTION
-                </h2>
-                <div className="h-1 w-16 bg-[#00ff88]" />
-              </div>
-              <div className="grid md:grid-cols-2 gap-8">
-                {project.solutions.map((solution, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    className="p-6 rounded-lg border border-[#00ff88]/20 bg-[#00ff88]/5"
-                  >
-                    <div className="flex gap-4">
-                      <span className="text-[#00ff88] font-bold flex-shrink-0 text-xl">
-                        ✓
-                      </span>
-                      <p className="text-gray-300 leading-relaxed">{solution}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.section>
-          )}
-
-          {/* Architecture Section */}
-          {project.architecture && (
-            <motion.section
-              variants={sectionVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="space-y-8"
-            >
-              <div>
-                <h2 className="text-4xl md:text-5xl font-bold text-white mb-2">
-                  ARCHITECTURE
-                </h2>
-                <div className="h-1 w-16 bg-[#00ff88]" />
-              </div>
-
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-                className="p-8 rounded-xl border border-[#00ff88]/20 bg-gradient-to-br from-[#00ff88]/5 to-[#00ff88]/0"
-              >
-                <p className="text-gray-300 leading-relaxed mb-8">
-                  {project.architecture}
-                </p>
-
-                {/* Architecture Flow Visualization */}
-                <ArchitectureFlow project={project} />
-              </motion.div>
-            </motion.section>
-          )}
-
-          {/* Technology Stack Section */}
-          {project.technologies && project.technologies.length > 0 && (
-            <motion.section
-              variants={sectionVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="space-y-6"
-            >
-              <div>
-                <h2 className="text-4xl md:text-5xl font-bold text-white mb-2">
-                  TECHNOLOGY STACK
-                </h2>
-                <div className="h-1 w-16 bg-[#00ff88]" />
-              </div>
-
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {project.technologies.map((tech, index) => (
-                  <motion.div
-                    key={tech}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: index * 0.05 }}
-                    viewport={{ once: true }}
-                    className="p-4 rounded-lg border border-[#00ff88]/20 bg-[#00ff88]/5 text-center hover:border-[#00ff88]/50 hover:bg-[#00ff88]/10 transition-all"
-                  >
-                    <p className="text-sm font-semibold text-[#00ff88]">{tech}</p>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.section>
-          )}
-
-          {/* Results Section */}
-          {project.results && project.results.length > 0 && (
-            <motion.section
-              variants={sectionVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="space-y-6"
-            >
-              <div>
-                <h2 className="text-4xl md:text-5xl font-bold text-white mb-2">
-                  RESULTS
-                </h2>
-                <div className="h-1 w-16 bg-[#00ff88]" />
-              </div>
-
-              <div className="p-8 rounded-xl border border-[#00ff88]/30 bg-gradient-to-br from-[#00ff88]/10 to-[#00ff88]/5">
-                <div className="grid md:grid-cols-2 gap-6">
-                  {project.results.map((result, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.6, delay: index * 0.1 }}
-                      viewport={{ once: true }}
-                      className="flex gap-4 items-start"
-                    >
-                      <span className="text-[#00ff88] font-bold text-2xl flex-shrink-0 mt-1">
-                        ✓
-                      </span>
-                      <p className="text-gray-300 text-lg">{result}</p>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </motion.section>
-          )}
-
-          {/* External Links */}
-          {(project.liveUrl || project.githubUrl) && (
-            <motion.div
-              variants={itemVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="flex gap-4 pt-8 border-t border-[#00ff88]/20"
-            >
-              {project.githubUrl && (
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-black border border-[#00ff88]/50 text-[#00ff88] font-semibold rounded-lg hover:border-[#00ff88] hover:bg-[#00ff88]/10 transition-all"
-                >
-                  <Github size={18} />
-                  View on GitHub
-                </a>
-              )}
-              {project.liveUrl && (
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-[#00ff88] text-black font-semibold rounded-lg hover:bg-[#00ff88]/90 transition-all"
-                >
-                  <ExternalLink size={18} />
-                  Visit Live Project
-                </a>
-              )}
-            </motion.div>
-          )}
-        </div>
-      </div>
-
-      {/* Project Navigation */}
-      <div className="border-t border-[#00ff88]/20 py-20 px-6 md:px-12">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Previous Project */}
-            {prevProject ? (
-              <Link
-                to={`/projects/${prevProject.slug}`}
-                className="group p-6 rounded-lg border border-[#00ff88]/20 hover:border-[#00ff88]/50 hover:bg-[#00ff88]/5 transition-all"
-              >
-                <div className="flex items-center gap-3 mb-3">
-                  <ChevronLeft
-                    size={20}
-                    className="text-[#00ff88] group-hover:-translate-x-1 transition-transform"
-                  />
-                  <span className="text-xs text-gray-400 uppercase tracking-widest">
-                    Previous Project
-                  </span>
-                </div>
-                <h3 className="text-xl font-bold text-white group-hover:text-[#00ff88] transition-colors">
-                  {prevProject.title}
-                </h3>
-              </Link>
-            ) : (
-              <div />
-            )}
-
-            {/* Next Project */}
-            {nextProject ? (
-              <Link
-                to={`/projects/${nextProject.slug}`}
-                className="group p-6 rounded-lg border border-[#00ff88]/20 hover:border-[#00ff88]/50 hover:bg-[#00ff88]/5 transition-all text-right"
-              >
-                <div className="flex items-center justify-end gap-3 mb-3">
-                  <span className="text-xs text-gray-400 uppercase tracking-widest">
-                    Next Project
-                  </span>
-                  <ChevronRight
-                    size={20}
-                    className="text-[#00ff88] group-hover:translate-x-1 transition-transform"
-                  />
-                </div>
-                <h3 className="text-xl font-bold text-white group-hover:text-[#00ff88] transition-colors">
-                  {nextProject.title}
-                </h3>
-              </Link>
-            ) : (
-              <div />
-            )}
+    <article className="w-full bg-bg-primary text-text-primary">
+      {/* Top Broadsheet Dateline Ribbon */}
+      <div className="border-b border-border-primary bg-bg-surface py-2.5 px-4 sm:px-6 lg:px-12 font-mono text-2xs uppercase tracking-widest text-text-muted font-semibold">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 bg-accent inline-block" />
+            <span className="font-bold text-text-primary">
+              CASE STUDY // {String(currentIndex + 1).padStart(2, '0')}
+            </span>
+          </div>
+          <div className="flex items-center gap-4 font-bold text-text-primary">
+            <span>CATEGORY: {project.category}</span>
+            {project.year && <span>• {project.year}</span>}
           </div>
         </div>
       </div>
-    </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-10 sm:py-16">
+        {/* Navigation Breadcrumb */}
+        <div className="mb-8">
+          <Link
+            to="/projects"
+            className="inline-flex items-center gap-2 font-mono text-xs font-bold text-text-muted hover:text-accent uppercase tracking-wider transition-colors"
+          >
+            <ArrowLeft size={14} />
+            <span>Back to all projects</span>
+          </Link>
+        </div>
+
+        {/* Lead Case Headline */}
+        <div className="mb-8 max-w-5xl">
+          <span className="font-mono text-xs font-bold text-accent uppercase tracking-widest block mb-2">
+            CASE STUDY // {project.category.toUpperCase()}
+          </span>
+          <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-text-primary leading-[1.02] uppercase">
+            {project.title}
+          </h1>
+        </div>
+
+        {/* Double Rule */}
+        <div className="editorial-double-rule mb-10" />
+
+        {/* Case Study Meta Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-16">
+          {/* Left Column: Abstract & Overview */}
+          <div className="lg:col-span-8 space-y-6">
+            <p className="font-body text-xl sm:text-2xl text-text-primary leading-relaxed font-normal">
+              {project.shortDescription}
+            </p>
+
+            <div className="font-sans text-base text-text-primary leading-relaxed space-y-4 font-normal">
+              {project.longDescription ? (
+                project.longDescription.split('\n\n').map((para, i) => (
+                  <p key={i}>{para}</p>
+                ))
+              ) : (
+                <p>{project.description}</p>
+              )}
+            </div>
+
+            {/* Action Triggers */}
+            <div className="pt-2 flex flex-wrap gap-4">
+              {project.liveUrl && (
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn--primary"
+                >
+                  <ExternalLink size={15} />
+                  <span>Live Demo</span>
+                </a>
+              )}
+              {project.githubUrl && (
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn--secondary"
+                >
+                  <Github size={15} />
+                  <span>Source Code</span>
+                </a>
+              )}
+            </div>
+          </div>
+
+          {/* Right Column: Specification Ledger */}
+          <div className="lg:col-span-4">
+            <div className="border-2 border-border-primary bg-bg-secondary p-6 space-y-5">
+              <div className="border-b border-border-primary pb-3 flex items-center justify-between font-mono text-xs font-bold uppercase tracking-widest text-text-primary">
+                <span>PROJECT DETAILS</span>
+                <Layers size={14} className="text-accent" />
+              </div>
+
+              <div className="divide-y divide-border-subtle font-mono text-xs">
+                <div className="py-2.5 flex justify-between">
+                  <span className="text-text-muted font-bold">CATEGORY:</span>
+                  <span className="text-accent font-bold">{project.category}</span>
+                </div>
+                {project.year && (
+                  <div className="py-2.5 flex justify-between">
+                    <span className="text-text-muted font-bold">YEAR:</span>
+                    <span className="text-text-primary font-bold">{project.year}</span>
+                  </div>
+                )}
+                {project.role && (
+                  <div className="py-2.5 flex justify-between">
+                    <span className="text-text-muted font-bold">ROLE:</span>
+                    <span className="text-text-primary font-bold">{project.role}</span>
+                  </div>
+                )}
+                <div className="py-2.5 flex justify-between">
+                  <span className="text-text-muted font-bold">STATUS:</span>
+                  <span className="text-[#16A34A] font-bold">COMPLETED</span>
+                </div>
+              </div>
+
+              {/* Technologies List */}
+              <div className="pt-2 border-t border-border-primary">
+                <span className="font-mono text-2xs text-text-muted uppercase tracking-wider block mb-2 font-bold">
+                  TECH STACK:
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {project.technologies.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-2 py-0.5 border border-border-subtle bg-bg-primary font-mono text-2xs text-text-primary font-semibold"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Section: Architecture Blueprint */}
+        {project.architecture && (
+          <section className="mb-16 border-t-2 border-border-primary pt-12">
+            <div className="section-kicker mb-4">
+              <span>ARCHITECTURE // SYSTEM DESIGN</span>
+            </div>
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-text-primary uppercase mb-6">
+              Architecture & Design Decisions
+            </h2>
+            <div className="p-6 sm:p-8 border border-border-primary bg-bg-secondary space-y-6">
+              <p className="font-body text-base sm:text-lg text-text-primary leading-relaxed font-normal">
+                {project.architecture}
+              </p>
+              {/* Optional interactive visual graph */}
+              <div className="border border-border-subtle bg-bg-surface p-4">
+                <div className="font-mono text-2xs uppercase tracking-widest text-text-muted font-bold mb-3 flex items-center justify-between">
+                  <span>INTERACTIVE ARCHITECTURE DIAGRAM</span>
+                  <Cpu size={14} className="text-accent" />
+                </div>
+                <ArchitectureFlow project={project} />
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Section: Challenges & Solutions */}
+        {((project.challenges && project.challenges.length > 0) || (project.solutions && project.solutions.length > 0)) && (
+          <section className="mb-16 border-t-2 border-border-primary pt-12">
+            <div className="section-kicker mb-4">
+              <span>CHALLENGES & SOLUTIONS</span>
+            </div>
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-text-primary uppercase mb-8">
+              Key Challenges & How I Solved Them
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Challenges Column */}
+              {project.challenges && project.challenges.length > 0 && (
+                <div className="border border-border-primary bg-bg-secondary p-6 sm:p-8 space-y-4">
+                  <div className="flex items-center gap-2 font-mono text-xs font-bold text-accent uppercase tracking-widest border-b border-border-subtle pb-3">
+                    <AlertCircle size={15} />
+                    <span>CHALLENGES</span>
+                  </div>
+                  <ul className="space-y-4 font-sans text-sm text-text-primary font-medium">
+                    {project.challenges.map((c, i) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <span className="font-mono text-xs text-accent font-bold mt-0.5">#{String(i + 1).padStart(2, '0')}</span>
+                        <span className="leading-relaxed">{c}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Solutions Column */}
+              {project.solutions && project.solutions.length > 0 && (
+                <div className="border border-border-primary bg-bg-secondary p-6 sm:p-8 space-y-4">
+                  <div className="flex items-center gap-2 font-mono text-xs font-bold text-text-primary uppercase tracking-widest border-b border-border-subtle pb-3">
+                    <CheckCircle2 size={15} className="text-[#16A34A]" />
+                    <span>SOLUTIONS</span>
+                  </div>
+                  <ul className="space-y-4 font-sans text-sm text-text-primary font-medium">
+                    {project.solutions.map((s, i) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <span className="font-mono text-xs text-text-primary font-bold mt-0.5">#{String(i + 1).padStart(2, '0')}</span>
+                        <span className="leading-relaxed">{s}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
+        {/* Section: Results & Quantitative Impact */}
+        {project.results && project.results.length > 0 && (
+          <section className="mb-16 border-t-2 border-border-primary pt-12">
+            <div className="section-kicker mb-4">
+              <span>RESULTS & IMPACT</span>
+            </div>
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-text-primary uppercase mb-6">
+              Results & Measurable Impact
+            </h2>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {project.results.map((res, i) => (
+                <div
+                  key={i}
+                  className="p-6 border border-border-primary bg-bg-secondary flex flex-col justify-between"
+                >
+                  <span className="font-mono text-2xs text-text-muted uppercase tracking-wider block mb-3 font-bold">
+                    KEY RESULT #{String(i + 1).padStart(2, '0')}
+                  </span>
+                  <p className="font-serif text-base sm:text-lg font-bold text-text-primary leading-snug">
+                    {res}
+                  </p>
+                  <div className="mt-4 pt-3 border-t border-border-subtle font-mono text-2xs text-[#16A34A] uppercase font-bold flex items-center gap-1">
+                    <CheckCircle2 size={12} />
+                    <span>VERIFIED RESULT</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Bottom Pagination: Next & Previous Project */}
+        <div className="border-t-2 border-border-primary pt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {prevProject ? (
+            <Link
+              to={`/projects/${prevProject.slug}`}
+              className="p-6 border border-border-primary bg-bg-secondary hover:bg-bg-surface transition-colors block group"
+            >
+              <div className="flex items-center gap-2 font-mono text-2xs text-text-muted font-bold uppercase tracking-widest mb-1">
+                <ChevronLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
+                <span>PREVIOUS PROJECT</span>
+              </div>
+              <h4 className="font-serif text-xl font-bold text-text-primary group-hover:text-accent transition-colors">
+                {prevProject.title}
+              </h4>
+            </Link>
+          ) : <div />}
+
+          {nextProject ? (
+            <Link
+              to={`/projects/${nextProject.slug}`}
+              className="p-6 border border-border-primary bg-bg-secondary hover:bg-bg-surface transition-colors block text-right group"
+            >
+              <div className="flex items-center justify-end gap-2 font-mono text-2xs text-text-muted font-bold uppercase tracking-widest mb-1">
+                <span>NEXT PROJECT</span>
+                <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              </div>
+              <h4 className="font-serif text-xl font-bold text-text-primary group-hover:text-accent transition-colors">
+                {nextProject.title}
+              </h4>
+            </Link>
+          ) : <div />}
+        </div>
+      </div>
+    </article>
   );
 };
 

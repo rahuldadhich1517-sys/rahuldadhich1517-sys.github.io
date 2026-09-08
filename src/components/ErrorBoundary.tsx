@@ -34,7 +34,7 @@ export class ErrorBoundary extends React.Component<
             <h1 className="font-serif text-4xl md:text-5xl font-bold text-accent mb-4">
               Something went wrong
             </h1>
-            <p className="text-text-muted mb-8 text-base md:text-lg">
+            <p className="text-text-muted font-medium mb-8 text-base md:text-lg">
               We encountered an unexpected error. Please try refreshing the page.
             </p>
             <button

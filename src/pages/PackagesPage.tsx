@@ -1,43 +1,23 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { npmPackages } from '../data/npmPackages';
-import { Copy, Check, ExternalLink, Code2 } from 'lucide-react';
+import { Copy, Check, ExternalLink, Code2, Download, Package, ArrowUpRight, Terminal } from 'lucide-react';
 import useSEO from '../hooks/useSEO';
 
 const PackagesPage: React.FC = () => {
   useSEO({
-    title: 'Packages — Rahul Dadhich',
-    description: 'Open source NPM packages for string manipulation, data transformation, and utilities.',
+    title: 'NPM Packages & Open Source Libraries — Rahul Dadhich',
+    description: 'Published open source NPM packages for string manipulation, data transformation, schema validation, and utilities.',
     url: 'https://rahuldadhich.dev/packages',
   });
 
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.05,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-      },
-    },
-  };
-
   const categories = Array.from(
     new Set(npmPackages.map((pkg) => pkg.category))
   );
+
   const filteredPackages = selectedCategory
     ? npmPackages.filter((pkg) => pkg.category === selectedCategory)
     : npmPackages;
@@ -50,191 +30,233 @@ const PackagesPage: React.FC = () => {
   };
 
   return (
-    <section className="relative w-full py-16 sm:py-24 md:py-32 px-4 sm:px-6 md:px-12 bg-[#F9F9F7] overflow-hidden sharp-corners">
-      <div className="relative z-10 max-w-7xl mx-auto">
-        {/* Page Header */}
-        <motion.div
-          variants={itemVariants}
-          initial="hidden"
-          animate="visible"
-          className="mb-12 md:mb-16"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#111111]/20 bg-[#CC0000]/20 text-[#CC0000] tracking-widest uppercase text-xs mb-8">
-            PACKAGES
+    <div className="w-full bg-bg-primary text-text-primary">
+      {/* Top Broadsheet Dateline */}
+      <div className="border-b border-border-primary bg-bg-surface py-2.5 px-4 sm:px-6 lg:px-12 font-mono text-2xs uppercase tracking-widest text-text-muted font-semibold">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 bg-accent inline-block" />
+            <span className="font-bold text-text-primary">NPM PACKAGES // OPEN SOURCE LIBRARIES</span>
           </div>
-          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold text-[#111111] leading-tight mb-6">
-            Open Source Packages
-          </h1>
-          <p className="text-base md:text-lg text-[#737373] leading-relaxed max-w-2xl">
-            Reusable NPM packages I've published for string manipulation, data transformation, and utilities.
-          </p>
-        </motion.div>
+          <div className="flex items-center gap-3 font-bold text-text-primary">
+            <span>REGISTRY: NPMJS.COM/~RAHULDADHICH1517</span>
+            <span>•</span>
+            <span>PACKAGES: {npmPackages.length}</span>
+          </div>
+        </div>
+      </div>
 
-        {/* Category Filter */}
-        <motion.div
-          variants={itemVariants}
-          initial="hidden"
-          animate="visible"
-          className="mb-12 md:mb-16"
-        >
-          <div className="flex flex-wrap gap-3">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-12 sm:py-16 lg:py-20">
+        {/* Section Kicker */}
+        <div className="section-kicker mb-6">
+          <span>OPEN SOURCE PACKAGES</span>
+        </div>
+
+        {/* Page Headline */}
+        <div className="mb-10 sm:mb-14 max-w-5xl">
+          <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-text-primary leading-[1.02] uppercase">
+            Published Packages: <br />
+            <span className="italic font-normal font-serif text-text-muted lowercase">reusable</span>{' '}
+            libraries for developers.
+          </h1>
+          <p className="font-body text-base sm:text-xl text-text-primary leading-relaxed mt-4 max-w-3xl font-normal">
+            Modular software packages authored and distributed on npm. Built with full TypeScript support,
+            comprehensive unit tests, and minimal runtime footprints.
+          </p>
+        </div>
+
+        {/* Double Rule */}
+        <div className="editorial-double-rule mb-10" />
+
+        {/* Category Filter Bar */}
+        <div className="border border-border-primary bg-bg-secondary p-4 mb-12 flex flex-wrap items-center justify-between gap-4">
+          <div className="flex items-center gap-2 font-mono text-2xs uppercase tracking-wider text-text-muted font-bold">
+            <span className="w-1.5 h-1.5 bg-accent" />
+            <span>FILTER BY CATEGORY:</span>
+          </div>
+
+          <div className="flex flex-wrap gap-2">
             <button
               onClick={() => setSelectedCategory(null)}
-              className={`px-4 py-2 border transition-colors text-xs sm:text-sm font-medium uppercase tracking-wider ${
+              className={`px-3 py-1.5 font-mono text-xs uppercase tracking-wider transition-colors border ${
                 selectedCategory === null
-                  ? 'border-[#CC0000] bg-[#CC0000] text-[#F9F9F7]'
-                  : 'border-[#111111]/30 text-[#111111] hover:border-[#CC0000]'
+                  ? 'border-accent bg-accent text-white font-bold'
+                  : 'border-border-subtle bg-bg-primary text-text-primary font-semibold hover:border-border-primary'
               }`}
             >
-              All
+              ALL PACKAGES ({npmPackages.length})
             </button>
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 border transition-colors text-xs sm:text-sm font-medium uppercase tracking-wider ${
-                  selectedCategory === category
-                    ? 'border-[#CC0000] bg-[#CC0000] text-[#F9F9F7]'
-                    : 'border-[#111111]/30 text-[#111111] hover:border-[#CC0000]'
-                }`}
-              >
-                {category}
-              </button>
-            ))}
+            {categories.map((category) => {
+              const count = npmPackages.filter((pkg) => pkg.category === category).length;
+              const isSelected = selectedCategory === category;
+              return (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className={`px-3 py-1.5 font-mono text-xs uppercase tracking-wider transition-colors border ${
+                    isSelected
+                      ? 'border-accent bg-accent text-white font-bold'
+                      : 'border-border-subtle bg-bg-primary text-text-primary font-semibold hover:border-border-primary'
+                  }`}
+                >
+                  {category} ({count})
+                </button>
+              );
+            })}
           </div>
-        </motion.div>
+        </div>
 
-        {/* Packages Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="space-y-6"
-        >
-          {filteredPackages.map((pkg) => (
-            <motion.div
-              key={pkg.id}
-              variants={itemVariants}
-              className="p-6 sm:p-8 border border-[#111111] hover:bg-[#F5F5F5] transition-all duration-300 group"
-            >
-              {/* Header */}
-              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
-                <div>
-                  <h3 className="font-serif text-2xl font-bold text-[#111111] mb-2 flex items-center gap-2">
-                    <Code2 size={24} className="text-[#CC0000]" />
-                    {pkg.name}
-                  </h3>
-                  <p className="text-sm sm:text-base text-[#737373] leading-relaxed max-w-xl">
-                    {pkg.description}
-                  </p>
-                </div>
-                {pkg.featured && (
-                  <span className="w-fit px-3 py-1 bg-[#CC0000]/10 text-[#CC0000] text-xs font-semibold uppercase tracking-wider whitespace-nowrap">
-                    Featured
-                  </span>
-                )}
-              </div>
-
-              {/* Meta Info */}
-              <div className="flex flex-wrap gap-4 mb-6 text-xs text-[#737373]">
-                <div className="flex items-center gap-2">
-                  <span className="font-mono">v{pkg.version}</span>
-                </div>
-                <span className="px-2 py-1 border border-[#111111]/20 rounded">
-                  {pkg.category}
-                </span>
-                {pkg.downloads && (
-                  <span className="px-2 py-1 border border-[#111111]/20 rounded">
-                    {pkg.downloads.toLocaleString()} downloads
-                  </span>
-                )}
-              </div>
-
-              {/* Tools Used */}
-              {pkg.tools && pkg.tools.length > 0 && (
-                <div className="mb-6 pb-6 border-b border-[#111111]/10">
-                  <h4 className="text-xs font-semibold uppercase tracking-wider text-[#737373] mb-3">
-                    Built With
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {pkg.tools.map((tool) => (
-                      <span
-                        key={tool}
-                        className="text-xs px-2.5 py-1.5 bg-[#111111]/5 text-[#111111] border border-[#111111]/20 font-medium"
-                      >
-                        {tool}
-                      </span>
-                    ))}
+        {/* Packages Stream */}
+        <div className="space-y-10 sm:space-y-12">
+          {filteredPackages.map((pkg, index) => {
+            const indexStr = String(index + 1).padStart(2, '0');
+            return (
+              <motion.article
+                key={pkg.id}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4 }}
+                className="border-2 border-border-primary bg-bg-secondary p-6 sm:p-8 lg:p-10"
+              >
+                {/* Header Ribbon */}
+                <div className="flex flex-wrap items-center justify-between border-b border-border-subtle pb-4 mb-6 font-mono text-2xs uppercase tracking-widest text-text-muted font-semibold">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 bg-accent inline-block" />
+                    <span className="font-bold text-text-primary">PACKAGE // {indexStr}</span>
+                    <span>•</span>
+                    <span className="text-accent font-bold">{pkg.category}</span>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <span>VERSION: v{pkg.version}</span>
+                    {pkg.downloads && (
+                      <>
+                        <span>•</span>
+                        <span className="text-text-primary font-bold">{pkg.downloads.toLocaleString()} DOWNLOADS</span>
+                      </>
+                    )}
                   </div>
                 </div>
-              )}
 
-              {/* Installation Command */}
-              <div className="mb-6 p-4 bg-[#F5F5F5] border border-[#111111]/10 font-mono text-sm text-[#111111] flex items-center justify-between group/command">
-                <span>{`npm install ${pkg.name}`}</span>
-                <button
-                  onClick={() => handleCopyCommand(pkg.name, pkg.id)}
-                  className="ml-4 p-2 hover:bg-[#111111]/10 rounded transition-colors"
-                  aria-label="Copy install command"
-                >
-                  {copiedId === pkg.id ? (
-                    <Check size={16} className="text-[#CC0000]" />
-                  ) : (
-                    <Copy size={16} className="text-[#737373]" />
-                  )}
-                </button>
-              </div>
+                {/* Main Content Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                  <div className="lg:col-span-8 space-y-6">
+                    <div>
+                      <h3 className="font-serif text-3xl sm:text-4xl font-bold text-text-primary flex items-center gap-3">
+                        <Package size={26} className="text-accent" />
+                        <span>{pkg.name}</span>
+                      </h3>
+                      <span className="font-mono text-xs text-text-muted font-semibold block mt-1">
+                        AUTHOR: {pkg.author} • RELEASE YEAR: {pkg.year || 2026}
+                      </span>
+                    </div>
 
-              {/* Tags */}
-              {pkg.tags.length > 0 && (
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {pkg.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-xs px-2 py-1 bg-[#F9F9F7] text-[#737373] border border-[#111111]/10"
-                    >
-                      {tag}
+                    <p className="font-body text-base sm:text-lg text-text-primary leading-relaxed font-normal">
+                      {pkg.description}
+                    </p>
+
+                    {/* Terminal Copy Command Strip */}
+                    <div>
+                      <span className="font-mono text-2xs text-text-muted uppercase tracking-wider block mb-2 font-bold">
+                        INSTALL COMMAND:
+                      </span>
+                      <div className="flex items-center justify-between p-3.5 bg-bg-primary border border-border-primary font-mono text-xs sm:text-sm text-text-primary">
+                        <div className="flex items-center gap-2 font-bold">
+                          <Terminal size={15} className="text-accent flex-shrink-0" />
+                          <span className="select-all">npm install {pkg.name}</span>
+                        </div>
+                        <button
+                          onClick={() => handleCopyCommand(pkg.name, pkg.id)}
+                          className="px-2.5 py-1 border border-border-primary bg-bg-secondary hover:bg-bg-surface font-mono text-2xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition-colors"
+                          aria-label="Copy install command"
+                        >
+                          {copiedId === pkg.id ? (
+                            <>
+                              <Check size={12} className="text-accent" />
+                              <span className="text-accent">COPIED</span>
+                            </>
+                          ) : (
+                            <>
+                              <Copy size={12} />
+                              <span>COPY</span>
+                            </>
+                          )}
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Built With Toolchain */}
+                    {pkg.tools && pkg.tools.length > 0 && (
+                      <div>
+                        <span className="font-mono text-2xs text-text-muted uppercase tracking-wider block mb-2 font-bold">
+                          BUILT WITH:
+                        </span>
+                        <div className="flex flex-wrap gap-1.5">
+                          {pkg.tools.map((tool) => (
+                            <span
+                              key={tool}
+                              className="px-2.5 py-1 border border-border-primary bg-bg-surface font-mono text-xs text-text-primary font-semibold"
+                            >
+                              {tool}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Right Sidecard: Registry Verification */}
+                  <div className="lg:col-span-4 border border-border-primary bg-bg-surface p-6 space-y-5">
+                    <span className="font-mono text-xs font-bold uppercase tracking-widest text-text-primary block border-b border-border-subtle pb-2">
+                      PACKAGE INFO
                     </span>
-                  ))}
+
+                    <div className="space-y-2.5 font-mono text-xs">
+                      <div className="flex justify-between">
+                        <span className="text-text-muted font-bold">ECOSYSTEM:</span>
+                        <span className="font-bold text-text-primary">Node.js / npm</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-text-muted font-bold">LICENSE:</span>
+                        <span className="text-text-primary font-semibold">MIT Open Source</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-text-muted font-bold">TYPE SYSTEM:</span>
+                        <span className="text-accent font-bold">Strict TypeScript</span>
+                      </div>
+                    </div>
+
+                    {/* Action Links */}
+                    <div className="pt-3 border-t border-border-subtle space-y-2">
+                      <a
+                        href={pkg.npmUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn btn--primary btn--sm w-full flex items-center justify-center gap-1.5"
+                      >
+                        <ExternalLink size={14} />
+                        <span>View on npm</span>
+                      </a>
+                      {pkg.githubUrl && (
+                        <a
+                          href={pkg.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn btn--secondary btn--sm w-full flex items-center justify-center gap-1.5"
+                        >
+                          <Code2 size={14} />
+                          <span>Source Code</span>
+                        </a>
+                      )}
+                    </div>
+                  </div>
                 </div>
-              )}
-
-              {/* Links */}
-              <div className="flex flex-wrap gap-4 text-sm">
-                <a
-                  href={pkg.npmUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-[#CC0000] hover:text-[#111111] font-semibold uppercase tracking-wider transition-colors"
-                >
-                  NPM Package
-                  <ExternalLink size={14} />
-                </a>
-                {pkg.githubUrl && (
-                  <a
-                    href={pkg.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-[#CC0000] hover:text-[#111111] font-semibold uppercase tracking-wider transition-colors"
-                  >
-                    GitHub
-                    <ExternalLink size={14} />
-                  </a>
-                )}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {filteredPackages.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-[#737373]">
-              No packages found in this category.
-            </p>
-          </div>
-        )}
+              </motion.article>
+            );
+          })}
+        </div>
       </div>
-    </section>
+    </div>
   );
 };
 

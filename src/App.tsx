@@ -14,6 +14,7 @@ import ResumePage from './pages/ResumePage';
 import ContactPage from './pages/ContactPage';
 import NotFoundPage from './pages/NotFoundPage';
 import VideosPage from './pages/VideosPage';
+import ProjectCaseStudy from './components/pages/ProjectCaseStudy';
 
 function App() {
   return (
@@ -26,9 +27,12 @@ function App() {
             <Route path="/skills" element={<SkillsPage />} />
             <Route path="/experience" element={<ExperiencePage />} />
             <Route path="/projects" element={<ProjectsPage />} />
+            <Route path="/projects/:slug" element={<ProjectCaseStudy />} />
             <Route path="/github" element={<GitHubPage />} />
             <Route path="/packages" element={<PackagesPage />} />
+            <Route path="/npm" element={<PackagesPage />} />
             <Route path="/videos" element={<VideosPage />} />
+            <Route path="/reels" element={<VideosPage />} />
             <Route path="/resume" element={<ResumePage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="*" element={<NotFoundPage />} />

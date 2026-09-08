@@ -103,7 +103,7 @@ export const VerticalTimeline: React.FC<VerticalTimelineProps> = ({ experiences 
                       {experience.year}
                     </motion.p>
                     <motion.p
-                      className="text-xs font-mono text-text-muted uppercase tracking-wider"
+                      className="text-xs font-mono text-text-muted font-semibold uppercase tracking-wider"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.15 }}
@@ -131,7 +131,7 @@ export const VerticalTimeline: React.FC<VerticalTimelineProps> = ({ experiences 
                   {experience.role}
                 </motion.h4>
                 <motion.p
-                  className="text-accent-secondary text-sm sm:text-base font-medium mb-2"
+                  className="text-accent-secondary text-sm sm:text-base font-semibold mb-2"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.25 }}
@@ -140,7 +140,7 @@ export const VerticalTimeline: React.FC<VerticalTimelineProps> = ({ experiences 
                 </motion.p>
 
                 {/* Duration and Location (preview) */}
-                <div className="text-xs text-text-muted space-y-1">
+                <div className="text-xs text-text-muted font-medium space-y-1">
                   {experience.duration && <p>{experience.duration}</p>}
                   {experience.location && <p>{experience.location}</p>}
                 </div>
@@ -164,10 +164,10 @@ export const VerticalTimeline: React.FC<VerticalTimelineProps> = ({ experiences 
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}
                   >
-                    <p className="text-xs font-mono text-text-muted uppercase tracking-wider mb-2">
+                    <p className="text-xs font-mono text-text-muted font-bold uppercase tracking-wider mb-2">
                       Description
                     </p>
-                    <p className="text-text-secondary text-sm leading-relaxed">
+                    <p className="text-text-muted text-sm leading-relaxed font-normal">
                       {experience.description}
                     </p>
                   </motion.div>
@@ -178,7 +178,7 @@ export const VerticalTimeline: React.FC<VerticalTimelineProps> = ({ experiences 
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
                   >
-                    <p className="text-xs font-mono text-text-muted uppercase tracking-wider mb-2">
+                    <p className="text-xs font-mono text-text-muted font-bold uppercase tracking-wider mb-2">
                       Technologies
                     </p>
                     <div className="flex flex-wrap gap-2">

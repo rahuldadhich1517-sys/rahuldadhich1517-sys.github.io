@@ -218,7 +218,7 @@ const ArchitectureVisualization: React.FC = () => {
             </div>
             <button
               onClick={() => setSelectedNode(null)}
-              className="text-text-muted hover:text-text-primary transition-colors"
+              className="text-text-muted hover:text-text-primary font-bold transition-colors"
             >
               ✕
             </button>
@@ -235,7 +235,7 @@ const ArchitectureVisualization: React.FC = () => {
                 className="flex items-center gap-3 p-3 rounded bg-bg-card border border-border-primary"
               >
                 <span className="text-accent-primary font-bold">▪</span>
-                <span className="text-text-secondary">{detail}</span>
+                <span className="text-text-muted font-medium">{detail}</span>
               </motion.div>
             ))}
           </div>
@@ -243,12 +243,12 @@ const ArchitectureVisualization: React.FC = () => {
           {/* Connected services */}
           {getConnectionsForNode(selectedNode.id).length > 0 && (
             <div className="mt-6 pt-6 border-t border-border-primary">
-              <p className="text-xs text-text-muted uppercase tracking-widest mb-3">Connections</p>
+              <p className="text-xs text-text-muted font-bold uppercase tracking-widest mb-3">Connections</p>
               <div className="flex flex-wrap gap-2">
                 {getConnectionsForNode(selectedNode.id).map((conn, index) => (
                   <div
                     key={index}
-                    className="px-3 py-1 rounded-full text-xs bg-accent-primary/10 text-accent-primary border border-accent-primary/20"
+                    className="px-3 py-1 rounded-full text-xs bg-accent-primary/10 text-accent-primary border border-accent-primary/20 font-mono font-medium"
                   >
                     {conn.from === selectedNode.id ? `→ ${conn.to}` : `← ${conn.from}`}
                   </div>
@@ -265,7 +265,7 @@ const ArchitectureVisualization: React.FC = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 1 }}
-          className="mt-6 text-center text-sm text-text-muted flex items-center justify-center gap-2"
+          className="mt-6 text-center text-sm text-text-muted font-medium flex items-center justify-center gap-2"
         >
           <ChevronDown size={16} className="animate-bounce" />
           Click any node to see details

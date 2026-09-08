@@ -120,7 +120,7 @@ export const HorizontalTimeline: React.FC<HorizontalTimelineProps> = ({ experien
 
                 {/* Year label below */}
                 <motion.div
-                  className="absolute top-8 left-1/2 -translate-x-1/2 text-xs font-mono text-text-muted whitespace-nowrap"
+                  className="absolute top-8 left-1/2 -translate-x-1/2 text-xs font-mono text-text-muted font-semibold whitespace-nowrap"
                   initial={{ opacity: 0, y: -10 }}
                   animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: -10 }}
                   transition={{ delay: 0.1 }}
@@ -167,7 +167,7 @@ export const HorizontalTimeline: React.FC<HorizontalTimelineProps> = ({ experien
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}
-                className="text-lg text-accent-secondary"
+                className="text-lg text-accent-secondary font-semibold"
               >
                 {selectedExperience.company}
               </motion.p>
@@ -182,10 +182,10 @@ export const HorizontalTimeline: React.FC<HorizontalTimelineProps> = ({ experien
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.25 }}
                   >
-                    <p className="text-xs text-text-muted uppercase tracking-wider mb-1">
+                    <p className="text-xs text-text-muted font-bold uppercase tracking-wider mb-1">
                       Duration
                     </p>
-                    <p className="text-text-primary font-medium">{selectedExperience.duration}</p>
+                    <p className="text-text-primary font-semibold">{selectedExperience.duration}</p>
                   </motion.div>
                 )}
                 {selectedExperience.location && (
@@ -194,10 +194,10 @@ export const HorizontalTimeline: React.FC<HorizontalTimelineProps> = ({ experien
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.3 }}
                   >
-                    <p className="text-xs text-text-muted uppercase tracking-wider mb-1">
+                    <p className="text-xs text-text-muted font-bold uppercase tracking-wider mb-1">
                       Location
                     </p>
-                    <p className="text-text-primary font-medium">{selectedExperience.location}</p>
+                    <p className="text-text-primary font-semibold">{selectedExperience.location}</p>
                   </motion.div>
                 )}
               </div>
@@ -211,7 +211,7 @@ export const HorizontalTimeline: React.FC<HorizontalTimelineProps> = ({ experien
             transition={{ delay: 0.35 }}
             className="mb-6 pb-6 border-b border-border-primary"
           >
-            <p className="text-text-secondary leading-relaxed">{selectedExperience.description}</p>
+            <p className="text-text-muted leading-relaxed font-normal">{selectedExperience.description}</p>
           </motion.div>
 
           {/* Technologies */}
@@ -220,7 +220,7 @@ export const HorizontalTimeline: React.FC<HorizontalTimelineProps> = ({ experien
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
           >
-            <p className="text-xs font-mono text-text-muted uppercase tracking-wider mb-3">
+            <p className="text-xs font-mono text-text-muted font-bold uppercase tracking-wider mb-3">
               Technologies
             </p>
             <div className="flex flex-wrap gap-2">
@@ -240,7 +240,7 @@ export const HorizontalTimeline: React.FC<HorizontalTimelineProps> = ({ experien
 
           {/* Expand indicator */}
           <motion.div
-            className="mt-6 text-center text-xs text-text-muted"
+            className="mt-6 text-center text-xs text-text-muted font-semibold"
             animate={{ y: [0, 3, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
