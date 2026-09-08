@@ -23,17 +23,17 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: "project-1",
-    slug: "kompublic-chatbot",
-    title: "KomPublic Chatbot",
+    slug: "AI-chatbot",
+    title: "AI Chatbot",
 
     shortDescription:
       "AI-assisted chatbot designed to help Case Managers resolve case inquiries faster.",
 
     description:
-      "Developed an AI-assisted chatbot for the KomPublic platform to help Case Managers resolve case-related inquiries faster and improve access to relevant information.",
+      "Developed an AI-assisted chatbot to help Case Managers resolve case-related inquiries faster and improve access to relevant information.",
 
     longDescription: `
-The KomPublic Chatbot was developed as an AI-assisted solution to help Case Managers handle and resolve case inquiries more efficiently.
+The Chatbot was developed as an AI-assisted solution to help Case Managers handle and resolve case inquiries more efficiently.
 
 One of the key technical challenges was implementing secure authentication using Azure services. I researched and implemented Microsoft Entra ID (Azure Active Directory) to provide seamless and secure authentication for users.
 
@@ -49,7 +49,7 @@ After researching, testing, and integrating the authentication flow, the chatbot
       "REST APIs",
     ],
 
-    image: "/projects/kompublic-chatbot.jpg",
+    image: "",
 
     githubUrl: "",
     liveUrl: "",
@@ -84,8 +84,8 @@ After researching, testing, and integrating the authentication flow, the chatbot
 
   {
     id: "project-2",
-    slug: "kompublic-municipality-case-management",
-    title: "KomPublic Municipality Case Management",
+    slug: "municipality-case-management System",
+    title: "Municipality Case Management",
 
     shortDescription:
       "Case management platform used by Danish municipalities with improved data fetching performance.",
@@ -94,7 +94,7 @@ After researching, testing, and integrating the authentication flow, the chatbot
       "Built and maintained a platform for Danish municipalities to manage and track cases with real-time status updates.",
 
     longDescription: `
-The KomPublic Case Management platform is used by Danish municipalities to manage and track cases with real-time status updates.
+The Case Management platform is used by Danish municipalities to manage and track cases with real-time status updates.
 
 One of my biggest achievements on this project was improving application performance. When I joined the project, multiple React components were making the same API calls independently, causing redundant network requests and slower page loading.
 
@@ -112,7 +112,7 @@ As a result, redundant API calls were significantly reduced and data fetching pe
       "State Management",
     ],
 
-    image: "/projects/kompublic-case-management.jpg",
+    image: "",
 
     githubUrl: "",
     liveUrl: "",

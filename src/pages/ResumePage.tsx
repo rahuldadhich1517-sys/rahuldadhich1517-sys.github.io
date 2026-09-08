@@ -113,13 +113,13 @@ const ResumePage: React.FC = () => {
                 <li className="flex items-start gap-2.5">
                   <span className="font-mono text-accent text-xs mt-0.5">▪</span>
                   <span>
-                    Architected and maintained the <strong>KomPublic Municipality Case Management</strong> platform for Danish local authorities; centralized API calls and state caching using <strong>Redux Toolkit</strong>, reducing redundant network requests and improving data-fetching latency by 25%.
+                    Architected and maintained the <strong>Municipality Case Management</strong> platform for Danish local authorities; centralized API calls and state caching using <strong>Redux Toolkit</strong>, reducing redundant network requests and improving data-fetching latency by 25%.
                   </span>
                 </li>
                 <li className="flex items-start gap-2.5">
                   <span className="font-mono text-accent text-xs mt-0.5">▪</span>
                   <span>
-                    Developed the <strong>KomPublic AI Chatbot</strong> application for Case Managers, integrating <strong>Microsoft Entra ID (Azure Active Directory)</strong> single sign-on without production downtime.
+                    Developed the <strong> AI Chatbot</strong> application for Case Managers, integrating <strong>Microsoft Entra ID (Azure Active Directory)</strong> single sign-on without production downtime.
                   </span>
                 </li>
                 <li className="flex items-start gap-2.5">
