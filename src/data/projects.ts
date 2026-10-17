@@ -211,6 +211,58 @@ The result was a flexible and customisable visual tool that makes it easier for 
     year: 2025,
     role: "Full Stack Developer",
   },
+  {
+    id: "project-4",
+    slug: "local-tool-vault",
+    title: "Local Tool Vault",
+
+    shortDescription:
+      "A browser-based collection of developer tools with no login, signup, or server-side user data storage.",
+
+    description:
+      "Created a local tool vault that gives developers quick access to useful tools directly in the browser, without requiring authentication or storing user data on a server.",
+
+    longDescription: `
+Local Tool Vault is a web application that brings useful developer tools together in one place.
+
+The application is designed to be used without creating an account: there is no authentication, login, or signup flow. The tools run directly in the browser without an application backend or server-side user-data store.
+
+This keeps access straightforward for developers while avoiding the collection and storage of user data by the application.
+    `.trim(),
+
+    technologies: [
+      "Web Application",
+      "Browser-based",
+      "Client-side",
+      "No Authentication",
+      "No Backend",
+    ],
+
+    image: "",
+
+    liveUrl: "https://localtoolvault.vercel.app/",
+
+    featured: true,
+    category: "Tool",
+
+    architecture:
+      "A browser-based tool vault with no application backend, authentication, or server-side user-data storage.",
+
+    challenges: [
+      "Make developer tools accessible without requiring account creation.",
+      "Avoid relying on a server to store user data.",
+    ],
+
+    solutions: [
+      "Provide access to the tools directly through the web application without login or signup.",
+      "Keep the application free of server-side user-data storage.",
+    ],
+
+    results: [
+      "Developers can use the tool vault without authentication or account setup.",
+      "The application does not store user data on a server.",
+    ],
+  },
 ];
 
 export const getProjectBySlug = (

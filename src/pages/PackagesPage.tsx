@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { npmPackages } from '../data/npmPackages';
-import { Copy, Check, ExternalLink, Code2, Download, Package, ArrowUpRight, Terminal } from 'lucide-react';
+import { Copy, Check, ExternalLink, Code2, Package, Terminal } from 'lucide-react';
 import useSEO from '../hooks/useSEO';
 
 const PackagesPage: React.FC = () => {
   useSEO({
     title: 'NPM Packages & Open Source Libraries — Rahul Dadhich',
-    description: 'Published open source NPM packages for string manipulation, data transformation, schema validation, and utilities.',
-    url: 'https://rahuldadhich.dev/packages',
+    description: 'Five published npm packages for string and text utilities, data transformation, JWTs, date and time, and ID generation.',
+    url: 'https://rahuldadhich1517-sys.github.io/packages',
   });
 
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -39,7 +39,14 @@ const PackagesPage: React.FC = () => {
             <span className="font-bold text-text-primary">NPM PACKAGES // OPEN SOURCE LIBRARIES</span>
           </div>
           <div className="flex items-center gap-3 font-bold text-text-primary">
-            <span>REGISTRY: NPMJS.COM/~RAHULDADHICH1517</span>
+            <a
+              href="https://www.npmjs.com/~rahul_dadhich15"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-accent"
+            >
+              NPM PROFILE: @RAHUL_DADHICH15
+            </a>
             <span>•</span>
             <span>PACKAGES: {npmPackages.length}</span>
           </div>
