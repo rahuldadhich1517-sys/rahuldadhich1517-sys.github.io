@@ -131,7 +131,7 @@ const ResumePage: React.FC = () => {
                 <li className="flex items-start gap-2.5">
                   <span className="font-mono text-accent text-xs mt-0.5">▪</span>
                   <span>
-                    Built and published open-source npm packages (<code>stringkit-utils</code>, <code>data-transform-toolkit</code>) utilized for string operations and data transformations.
+                    Built and published open-source npm packages including <code>auth-jwt-toolkit</code>, <code>qr-barcode-toolkit</code>, <code>regex-validation-toolkit</code>, <code>diff-checker</code>, <code>math-calculator-toolkit</code>, <code>css-toolkit</code>, and <code>business-tools-toolkit</code>.
                   </span>
                 </li>
               </ul>
