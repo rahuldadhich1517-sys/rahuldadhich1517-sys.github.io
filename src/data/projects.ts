@@ -263,6 +263,54 @@ This keeps access straightforward for developers while avoiding the collection a
       "The application does not store user data on a server.",
     ],
   },
+  {
+    id: "project-5",
+    slug: "live-quiz-platform",
+    title: "Live Quiz Platform",
+
+    shortDescription:
+      "A real-time platform for coordinating team quizzes, managing questions, and keeping player screens and buzzers in sync.",
+
+    description:
+      "Built a full-stack quiz platform with a coordinator dashboard, live player display, team management, round-based scoring, and a mobile-friendly buzzer experience.",
+
+    longDescription: `
+Live Quiz Platform helps coordinators run team-based quiz events from a single dashboard. Coordinators can manage rounds and questions, reveal questions to players, control the timer, and record each team's result.
+
+The player display stays synchronized with quiz activity, while participants can join a team member-specific buzzer flow. The application uses Next.js route handlers and MongoDB for quiz data, with Socket.IO events for live updates across browser clients.
+    `.trim(),
+
+    technologies: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "MongoDB",
+      "Mongoose",
+      "Socket.IO",
+      "Tailwind CSS",
+      "Playwright",
+    ],
+
+    image: "",
+
+    liveUrl: "https://live-quiz-platform-eta.vercel.app/",
+
+    featured: true,
+    category: "Full Stack",
+
+    architecture:
+      "Next.js App Router pages and API routes connect to MongoDB through Mongoose, while Socket.IO events synchronize quiz actions across coordinator, player display, and buzzer clients.",
+
+    challenges: [
+      "Keep quiz state synchronized across coordinator controls, player displays, and buzzer clients.",
+      "Support question navigation, timers, answer outcomes, and round-based scoring in a single quiz workflow.",
+    ],
+
+    solutions: [
+      "Used Socket.IO events to publish live question, timer, buzzer, answer, and score updates to connected clients.",
+      "Implemented coordinator tools for managing rounds, questions, teams, and scoring, alongside dedicated player and buzzer screens.",
+    ],
+  },
 ];
 
 export const getProjectBySlug = (

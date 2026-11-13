@@ -289,6 +289,40 @@ export const npmPackages: NPMPackage[] = [
     year: 2026,
     tools: ["TypeScript"],
   },
+  {
+    id: "npm-developer-utilities-toolkit",
+    name: "@rahul_dadhich15/developer-utilities-toolkit",
+    description:
+      "A zero-dependency, browser-first toolkit of developer utilities for modern web applications, including tools for text, markup, colors, selectors, and debugging.",
+    version: "0.1.0",
+    npmUrl:
+      "https://www.npmjs.com/package/@rahul_dadhich15/developer-utilities-toolkit",
+    githubUrl:
+      "https://github.com/rahuldadhich1517-sys/developer-utilities-toolkit",
+    category: "Utility",
+    tags: ["developer-tools", "utilities", "browser", "typescript"],
+    featured: true,
+    author: "Rahul Dadhich",
+    year: 2026,
+    tools: ["TypeScript", "Browser", "Zero dependencies"],
+  },
+  {
+    id: "npm-database-tools-toolkit",
+    name: "@rahul_dadhich15/database-tools-toolkit",
+    description:
+      "A zero-runtime-dependency, browser-first toolkit for database utilities, including SQL formatting and builders, connection strings, query-plan inspection, and ID decoders.",
+    version: "1.1.0",
+    npmUrl:
+      "https://www.npmjs.com/package/@rahul_dadhich15/database-tools-toolkit",
+    githubUrl:
+      "https://github.com/rahuldadhich1517-sys/database-tools-toolkit",
+    category: "Data",
+    tags: ["database", "sql", "query-tools", "typescript"],
+    featured: true,
+    author: "Rahul Dadhich",
+    year: 2026,
+    tools: ["TypeScript", "Browser", "Zero dependencies"],
+  },
 ];
 
 export const getFeaturedPackages = (): NPMPackage[] => {

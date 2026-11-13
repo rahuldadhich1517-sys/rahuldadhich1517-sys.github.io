@@ -7,7 +7,7 @@ import useSEO from '../hooks/useSEO';
 const PackagesPage: React.FC = () => {
   useSEO({
     title: 'NPM Packages & Open Source Libraries — Rahul Dadhich',
-    description: `Explore ${npmPackages.length} published npm packages for TypeScript, data transformation, authentication, QR and barcode tools, validation, CSS, and business utilities.`,
+    description: `Explore ${npmPackages.length} published npm packages for TypeScript, data transformation, database tools, authentication, QR and barcode tools, validation, CSS, developer, and business utilities.`,
     url: 'https://rahuldadhich1517-sys.github.io/packages',
   });
 
