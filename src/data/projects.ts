@@ -22,6 +22,81 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: "project-ownvera",
+    slug: "ownvera",
+    title: "Ownvera",
+
+    shortDescription:
+      "A high-trust digital marketplace for turnkey SaaS subscriptions and exclusive software intellectual property acquisitions.",
+
+    description:
+      "Engineered a production-grade digital marketplace enabling turnkey SaaS workspace provisioning and institutional deal-room acquisitions for verified software products.",
+
+    longDescription: `
+Ownvera is a specialized, production-grade digital marketplace platform built for high-trust commercial software transactions.
+
+Traditional software marketplaces treat digital products as static, unverified zip code dumps with zero deployment assistance, high risk of code abandonment, and no enterprise transaction protections. Ownvera solves this by establishing a high-trust commercial platform facilitating two distinct commercial transactions:
+1. Turnkey SaaS Subscriptions: Recurring cloud subscriptions where customers immediately receive dedicated, multi-tenant workspace environments provisioned with custom branding, DNS bindings, and usage entitlements upon payment verification.
+2. Exclusive Intellectual Property Acquisitions: Complete asset buyouts where enterprise buyers acquire the full intellectual property, source code repositories, cloud infrastructure, domain names, and business assets under bilateral legal agreements and institutional deal room escrow.
+
+The platform serves a 3-role ecosystem: commercial buyers/enterprises seeking verified software; creators and software studios selling recurring subscriptions or seeking full buyouts; and platform administrators overseeing marketplace compliance, verification audits, payments, and disputes.
+
+Key features include:
+- Turnkey Multi-Tenant Workspace Provisioning: Automated deployment upon payment confirmation with white-label branding (logo, color themes) and custom domain CNAME routing.
+- Exclusive Acquisition Deal Room: Role-restricted deal rooms featuring bilateral NDAs, purchase agreement signing, diligence document vaults, settlement verification, and handover verification checklists.
+- Interactive Demo & Sandbox: 7-point technical verification and live credentials modal for hands-on evaluation before purchase.
+- Financial Compliance & Invoicing: Seamless Razorpay integration and automated statutory GST tax-compliant PDF invoice generation via PDFKit.
+- Portals & Governance: Dedicated dashboards for subscriptions, acquisitions, order tracking, financial ledgers/earnings, ticket-based customer support with SLAs, and privacy-compliant data export/account deactivation.
+
+The platform operates on a dual commercial model: recurring SaaS subscription billing and high-value exclusive IP acquisition transactions, replacing legacy zip licensing with verified cloud instances and institutional asset transfers.
+    `.trim(),
+
+    technologies: [
+      "React 19",
+      "TypeScript",
+      "Express 5",
+      "Node.js",
+      "Prisma 6",
+      "PostgreSQL",
+      "Supabase",
+      "Tailwind CSS 4",
+      "TanStack Query",
+      "Razorpay",
+      "Zod",
+    ],
+
+    image: "",
+
+    liveUrl: "https://ownvera-app.vercel.app/",
+
+    featured: true,
+    category: "Full Stack",
+
+    architecture:
+      "React 19, TypeScript, and Tailwind CSS 4 frontend using TanStack Query 5 and React Router 7, connected to an Express 5 and Node.js 24 backend with Prisma 6 ORM, PostgreSQL, Supabase Auth/Storage, and dual-persistence parity.",
+
+    challenges: [
+      "Designing a dual commercial engine supporting both recurring multi-tenant SaaS subscriptions and complex bilateral intellectual property acquisition deal rooms.",
+      "Automating instant workspace provisioning with white-label branding and custom domain configuration immediately upon Razorpay payment confirmation.",
+      "Enforcing strict 3-tier RBAC (Customer, Creator, Admin) and IDOR defenses while allowing multi-role coexistence without session fragmentation.",
+    ],
+
+    solutions: [
+      "Engineered dedicated customer and creator pipelines with state-driven deal rooms, diligence vaults, and bilateral contract execution for exclusive buyouts.",
+      "Built automated tenant workspace onboarding with custom branding, DNS CNAME bindings, and automated GST tax PDF invoice generation via PDFKit.",
+      "Implemented robust RBAC middleware, normalized role resolution, TanStack Query caching, and Zod schema parity across client and server.",
+    ],
+
+    results: [
+      "Delivered an end-to-end live marketplace platform with turnkey SaaS subscriptions and institutional acquisition escrow.",
+      "Automated instant multi-tenant workspace provisioning and statutory GST-compliant invoicing.",
+      "Maintained strict dual-persistence parity, zero schema drift, and secure multi-role access control.",
+    ],
+
+    year: 2026,
+    role: "Full Stack Developer & System Architect",
+  },
+  {
     id: "project-1",
     slug: "AI-chatbot",
     title: "AI Chatbot",
